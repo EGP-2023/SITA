@@ -1,6 +1,11 @@
-// import type { VerifyReply } from "./api/verify";
+// import type { any } from "./api/verify";
 import { CredentialType, IDKitWidget } from "@worldcoin/idkit";
 import type { ISuccessResult } from "@worldcoin/idkit";
+
+console.log("process.env.NEXT_PUBLIC_WLD_API_BASE_URL", process.env.NEXT_PUBLIC_WLD_API_BASE_URL)
+console.log("process.env.NEXT_PUBLIC_WLD_ACTION_NAME", process.env.NEXT_PUBLIC_WLD_ACTION_NAME)
+console.log("process.env.NEXT_PUBLIC_WLD_APP_ID", process.env.NEXT_PUBLIC_WLD_APP_ID)
+
 
 export default function WorldButton() {
   const onSuccess = (result: ISuccessResult) => {
@@ -26,7 +31,7 @@ export default function WorldButton() {
       },
       body: JSON.stringify(reqBody),
     });
-    const data: VerifyReply = await res.json();
+    const data: any = await res.json();
     if (res.status == 200) {
       console.log("Successful response from backend:\n", data); // Log the response from our backend for visibility
     } else {
