@@ -22,7 +22,9 @@ const ExampleUI: NextPage = () => {
     <>
       <div className="min-h-full flex items-center justify-center">
         <div className="px-20 py-5 bg-white shadow-2xl rounded-3xl text-center">
-          <Text fontSize="3xl">Sign Up</Text>
+          <Text className="font-bold" fontSize="3xl">
+            Sign Up
+          </Text>
           <Text fontSize="lg">What do you want to use SITA for?</Text>
 
           <Flex justifyContent="center">
@@ -41,7 +43,9 @@ const ExampleUI: NextPage = () => {
               direction={"column"}
             >
               <Image width={"150"} height={"150"} src="handgive.png" alt="Dan Abramov" />
-              <Text fontSize="lg">Borrow</Text>
+              <Text className="font-bold" fontSize="lg">
+                Borrow
+              </Text>
               <Text fontSize="sm">If you sign up as a borrower you will be able to create loan requests.</Text>
             </Flex>
             <Flex
@@ -59,7 +63,9 @@ const ExampleUI: NextPage = () => {
               direction={"column"}
             >
               <Image width={"150"} height={"150"} src="handshow.png" alt="Dan Abramov" />
-              <Text fontSize="lg">Lend</Text>
+              <Text className="font-bold" fontSize="lg">
+                Lend
+              </Text>
               <Text fontSize="sm">If you sign up as a borrower you will be able to create loan requests.</Text>
             </Flex>
           </Flex>
