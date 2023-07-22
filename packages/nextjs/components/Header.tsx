@@ -20,7 +20,7 @@ import {
 import { MdAdd, MdClose, MdHamburger } from "react-icons/md";
 import { useSitaStore } from "~~/utils/sitaStore";
 
-const Links = ["Dashboard", "Projects", "Team"];
+const Links = ["Lend", "Borrow", "MyDashboard", "About"];
 
 const NavLink = ({ children }: { children: ReactNode }) => (
   <Link
@@ -102,8 +102,6 @@ export default function Header() {
           </Box>
         ) : null}
       </Box>
-
-      <Box p={4}>Main Content Here</Box>
     </>
   );
 }
