@@ -1,4 +1,19 @@
-import { Box, Button, Flex, Image, Text, Textarea, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Image,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  RangeSlider,
+  RangeSliderFilledTrack,
+  RangeSliderThumb,
+  RangeSliderTrack,
+  Text,
+  Textarea,
+  VStack,
+} from "@chakra-ui/react";
 import type { NextPage } from "next";
 
 const ExampleUI: NextPage = () => {
@@ -10,33 +25,109 @@ const ExampleUI: NextPage = () => {
           <Text fontSize="lg">Step 2 of 2</Text>
 
           <Flex justifyContent="center">
-            <VStack spacing={4} align="stretch">
-              <Box className="text-justify" w={"740px"}>
-                <Text fontSize="2xl">Add Description</Text>
-                <Textarea
-                  h={"234px"}
+            <VStack spacing={0} align="stretch">
+              <Flex alignItems={"center"} className="text-justify" w={"740px"}>
+                <Text flex={1} fontSize="2xl">
+                  Enter Loan Principal
+                </Text>
+                {/* <Box flex={1} /> */}
+
+                <Input
+                  className="text-center"
+                  w={"150px"}
+                  rounded={"3xl"}
                   bg={"gray.100"}
-                  placeholder="Enter a description of what you will use the loan for here."
+                  size={"lg"}
+                  variant="filled"
+                  placeholder="$0.00"
                 />
-              </Box>
+              </Flex>
+              <Tip text={"Max amount you’re recommended for is $5,000"} />
+              <Flex alignItems={"center"} className="text-justify" w={"740px"}>
+                <Text flex={1} fontSize="2xl">
+                  Interest Rate Range
+                </Text>
+                {/* <Box flex={1} /> */}
+
+                <Input
+                  className="text-center"
+                  w={"150px"}
+                  rounded={"3xl"}
+                  bg={"gray.100"}
+                  size={"lg"}
+                  variant="filled"
+                  placeholder="3%"
+                />
+                <Box mx={4} fontSize={"md"}>
+                  to
+                </Box>
+                <Input
+                  className="text-center"
+                  w={"150px"}
+                  rounded={"3xl"}
+                  bg={"gray.100"}
+                  size={"lg"}
+                  variant="filled"
+                  placeholder="6%"
+                />
+              </Flex>
 
               <Flex alignItems={"center"} className="text-justify" w={"740px"}>
-                <Text fontSize="2xl">Add Images</Text>
-                <Box flex={1} />
-                <Button rounded={"3xl"} variant={"solid"} bg={"brand.900"} size={"lg"}>
-                  Add
-                </Button>
+                <RangeSlider
+                  min={0}
+                  max={12}
+                  aria-label={["min", "max"]}
+                  defaultValue={[3, 6]}
+                  onChangeEnd={val => console.log(val)}
+                  size={"lg"}
+                >
+                  <RangeSliderTrack>
+                    <RangeSliderFilledTrack color={"black"} bg={"black"} />
+                  </RangeSliderTrack>
+                  <RangeSliderThumb boxSize={6} index={0} />
+                  <RangeSliderThumb boxSize={6} index={1} />
+                </RangeSlider>
               </Flex>
+              <MinMax min={"0%"} max={"12%"} />
+              <Tip text={"The interest rate will decrease over time to incentivize lenders to contribute quickly"} />
+
               <Flex alignItems={"center"} className="text-justify" w={"740px"}>
-                <Text fontSize="2xl">Add Land Info</Text>
-                <Box flex={1} />
-                <Button rounded={"3xl"} variant={"solid"} bg={"brand.900"} size={"lg"}>
-                  Add
-                </Button>
+                <Text flex={1} fontSize="2xl">
+                  Repayment Period
+                </Text>
+                {/* <Box flex={1} /> */}
+
+                <Input
+                  className="text-center"
+                  w={"150px"}
+                  rounded={"3xl"}
+                  bg={"gray.100"}
+                  size={"lg"}
+                  variant="filled"
+                  placeholder="12m"
+                />
               </Flex>
+
+              <Flex alignItems={"center"} className="text-justify" w={"740px"}>
+                <RangeSlider
+                  min={0}
+                  max={12}
+                  aria-label={["min", "max"]}
+                  defaultValue={[3, 6]}
+                  onChangeEnd={val => console.log(val)}
+                  size={"lg"}
+                >
+                  <RangeSliderTrack>
+                    <RangeSliderFilledTrack color={"black"} bg={"black"} />
+                  </RangeSliderTrack>
+                  <RangeSliderThumb boxSize={6} index={0} />
+                  <RangeSliderThumb boxSize={6} index={1} />
+                </RangeSlider>
+              </Flex>
+              <MinMax min={"6 months"} max={"72 months"} />
 
               <Flex alignItems={"center"} className="text-justify bg-teal-50 rounded-3xl px-2" w={"740px"}>
-                <Text fontSize="2xl">Estimated Credit Value</Text>
+                <Text fontSize="2xl">Est Monthly Payment</Text>
                 <Box flex={1} />
                 <Text fontSize="2xl">-</Text>
               </Flex>
@@ -52,3 +143,25 @@ const ExampleUI: NextPage = () => {
 };
 
 export default ExampleUI;
+
+const Tip = ({ text }) => {
+  return (
+    <Flex mb={4}>
+      <Text className="mt-0 text-gray-400">{text}</Text>
+    </Flex>
+  );
+};
+
+const MinMax = ({ min, max }) => {
+  return (
+    <Flex>
+      <Text fontSize={"lg"} className="mt-0 text-gray-400">
+        {min}
+      </Text>
+      <Box flex={1} />
+      <Text fontSize={"lg"} className="mt-0 text-gray-400">
+        {max}
+      </Text>
+    </Flex>
+  );
+};
