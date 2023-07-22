@@ -3,6 +3,8 @@ import FarmerCard from "./FarmerCard";
 import IPFSUploader from "./IPFSUploader";
 import Map from "./Map";
 import WorldButton from "./WorldButton";
+// import { RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 export default function Main() {
   return (
@@ -14,6 +16,8 @@ export default function Main() {
       <Map />
 
       <FarmerCard />
+      {/* <RainbowKitCustomConnectButton /> */}
+      <ConnectButton />
     </>
   );
 }
