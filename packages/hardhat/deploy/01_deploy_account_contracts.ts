@@ -1,7 +1,6 @@
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
 
-
 const deployAccountContracts: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const { deployer } = await hre.getNamedAccounts();
   const { deploy } = hre.deployments;
@@ -22,7 +21,7 @@ const deployAccountContracts: DeployFunction = async function (hre: HardhatRunti
 
   await deploy("DebtToken", {
     from: deployer,
-    args: [1000000],
+    args: [1_000_000],
     log: true,
     autoMine: true,
   });
@@ -34,8 +33,14 @@ const deployAccountContracts: DeployFunction = async function (hre: HardhatRunti
     autoMine: true,
   });
 
+  await deploy("USDC", {
+    from: deployer,
+    args: [100_000_000_000], 
+    log: true,
+    autoMine: true,
+  });
 };
 
 export default deployAccountContracts;
 
-deployAccountContracts.tags = ["SitaAccount","SitaAccountRegistry","DebtToken", "SitaLoan"];
+deployAccountContracts.tags = ["SitaAccount","SitaAccountRegistry","DebtToken", "SitaLoan","USDC"];
