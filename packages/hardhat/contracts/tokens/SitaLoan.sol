@@ -7,11 +7,14 @@ import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
 contract SitaLoan is ERC721, Ownable, ReentrancyGuard {
     struct LenderLoanDetail {
+        uint256 id;
+        uint256 farmerLoanId;
         uint256 amount;
         uint256 interest;
     }
     
     struct FarmerLoanDetail {
+        uint256 id;
         uint256 principleAmount;
         uint256 minInterest;
         uint256 maxInterest;
@@ -21,9 +24,13 @@ contract SitaLoan is ERC721, Ownable, ReentrancyGuard {
         uint256 startDate;
     }
 
+    struct FarmerLoan2LenderLoanArray {
+        uint256 farmerLoanId;
+        LenderLoanDetail[] lenderLoanDetails;
+    }
+
     mapping(uint256 => FarmerLoanDetail) public farmerLoanDetails;
-    mapping(uint256 => LenderLoanDetail) public lenderLoanDetails;
-    mapping(uint256 => uint256) public loanMappings;
+    mapping(uint256 => FarmerLoan2LenderLoanArray) public farmerLoan2LenderLoanArray;
 
     uint256 public nextFarmerLoanDetailId = 1;
     uint256 public nextLenderLoanDetailId = 1;
@@ -46,6 +53,7 @@ contract SitaLoan is ERC721, Ownable, ReentrancyGuard {
         uint256 startDate
     ) public returns (uint256) {
         FarmerLoanDetail memory newFarmerLoanDetail = FarmerLoanDetail({
+            id: nextFarmerLoanDetailId,
             principleAmount: principleAmount,
             minInterest: minInterest,
             maxInterest: maxInterest,
@@ -62,22 +70,22 @@ contract SitaLoan is ERC721, Ownable, ReentrancyGuard {
     }
 
     function createLenderLoanDetail(
+        uint256 farmerLoanId,
         uint256 amount,
         uint256 interest
     ) public returns (uint256) {
         LenderLoanDetail memory newLenderLoanDetail = LenderLoanDetail({
+            id: nextLenderLoanDetailId,
+            farmerLoanId: farmerLoanId,
             amount: amount,
             interest: interest
         });
 
-        lenderLoanDetails[nextLenderLoanDetailId] = newLenderLoanDetail;
+        farmerLoan2LenderLoanArray[farmerLoanId].lenderLoanDetails.push(newLenderLoanDetail);
         
+        _mint(msg.sender, nextLenderLoanDetailId);
+
         nextLenderLoanDetailId++;
         return nextLenderLoanDetailId - 1;
     }
-
-    function mapLoanDetails(uint256 lenderLoanDetailId, uint256 farmerLoanDetailId) public {
-        loanMappings[lenderLoanDetailId] = farmerLoanDetailId;
-    }
-
 }
