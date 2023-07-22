@@ -1,7 +1,8 @@
 import BiconomyButton from "./BiconomyButton";
-import WorldButton from "./WorldButton";
+import FarmerCard from "./FarmerCard";
 import IPFSUploader from "./IPFSUploader";
 import Map from "./Map";
+import WorldButton from "./WorldButton";
 
 export default function Main() {
   return (
@@ -11,6 +12,8 @@ export default function Main() {
       <BiconomyButton />
       <IPFSUploader />
       <Map />
+
+      <FarmerCard />
     </>
   );
 }
