@@ -31,4 +31,4 @@ const deployAccountContracts: DeployFunction = async function (hre: HardhatRunti
 
 export default deployAccountContracts;
 
-deployAccountContracts.tags = ["SitaAccount","SitaAccountRegistry","MockNFT"];
+deployAccountContracts.tags = ["SitaAccount","SitaAccountRegistry","MockNFT", "SitaLoan"];
