@@ -1,15 +1,10 @@
 import { create } from "zustand";
 
-console.log(create)
+console.log(create);
 
-export const useSitaStore = create((set) => ({
-  bears: 0,
-  increasePopulation: () => set(state => ({ bears: state.bears + 1 })),
-  removeAllBears: () => set({ bears: 0 }),
+export const useSitaStore = create(set => ({
+  auth: true,
+  setAuth: (auth: boolean) => set({ auth }),
   biconomySmartAccount: null,
   setBiconomySmartAccount: (biconomySmartAccount: any) => set({ biconomySmartAccount }),
 }));
-
-
-
-
