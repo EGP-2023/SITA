@@ -31,6 +31,7 @@
     "@turf/turf": "^6.5.0",
     "@uniswap/sdk-core": "^4.0.1",
     "@uniswap/v2-sdk": "^3.0.1",
+    "@walletconnect/web3-provider": "^1.7.8",
     "@worldcoin/idkit": "^0.5.1",
     "daisyui": "^2.31.0",
     "framer-motion": "^10.13.0",
