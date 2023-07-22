@@ -85,7 +85,38 @@ contract SitaLoan is ERC721, Ownable, ReentrancyGuard {
         
         _mint(msg.sender, nextLenderLoanDetailId);
 
+
         nextLenderLoanDetailId++;
         return nextLenderLoanDetailId - 1;
     }
+
+    function getLenderLoanDetail(uint256 farmerLoanId, uint256 index) public view returns (
+        uint256, uint256, uint256, uint256
+    ) {
+        LenderLoanDetail memory detail = farmerLoan2LenderLoanArray[farmerLoanId].lenderLoanDetails[index];
+        return (
+            detail.id,
+            detail.farmerLoanId,
+            detail.amount,
+            detail.interest
+        );
+    }
+
+        function getFarmerLoanDetail(uint256 id) public view returns (
+        uint256, uint256, uint256, uint256, uint256, uint256, uint256, uint256
+    ) {
+        FarmerLoanDetail memory detail = farmerLoanDetails[id];
+        return (
+            detail.id,
+            detail.principleAmount,
+            detail.minInterest,
+            detail.maxInterest,
+            detail.term,
+            detail.creditValue,
+            detail.disbursmentDate,
+            detail.startDate
+        );
+    }
+
+
 }
