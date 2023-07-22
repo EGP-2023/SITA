@@ -22,16 +22,14 @@ function WalletConnectButton(props) {
   const [rendered, setRendered] = useState("");
 
   const setAccount = props.setAccount;
-//   const setContract = props.setContract;
-//   const setContractDetails = props.setContractDetails;
+
   const account = props.account;
   const contract = props.contract;
 
   const fetchContractDetails = async () => {
     if (contract != null && account != "") {
       console.log("Fetching contract details....");
-    //   const contractData = await getContractDetails(contract, account);
-    //   setContractDetails(contractData);
+
     }
   };
 
@@ -50,8 +48,9 @@ function WalletConnectButton(props) {
         const name = await provider.lookupAddress(accounts[0]);
         // const signer = await provider.getSigner();
         // Render either the ENS name or the shortened account address.
-        const contractWithWalletConnection =
-          await createContractWithSignerRektguy(provider);
+
+        const contractWithWalletConnection = await createContractWithSignerRektguy(provider);
+
         const contractENS = await createContractWithSignerENS(provider);
         setContractENS(contractENS);
         setContract(contractWithWalletConnection);
