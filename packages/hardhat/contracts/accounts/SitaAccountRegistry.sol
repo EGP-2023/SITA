@@ -8,6 +8,7 @@ import "../lib/ERC6551BytecodeLib.sol";
 
 contract SitaAccountRegistry is IERC6551Registry {
     error InitializationFailed();
+    address public sitaLoanCtAddr;
 
     function createAccount(
         address implementation,
@@ -37,7 +38,6 @@ contract SitaAccountRegistry is IERC6551Registry {
             (bool success, ) = _account.call(initData);
             if (!success) revert InitializationFailed();
         }
-
         return _account;
     }
 
@@ -57,7 +57,6 @@ contract SitaAccountRegistry is IERC6551Registry {
                 salt
             )
         );
-
         return Create2.computeAddress(bytes32(salt), bytecodeHash);
     }
 }
