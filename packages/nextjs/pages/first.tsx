@@ -4,7 +4,7 @@ import type { NextPage } from "next";
 const ExampleUI: NextPage = () => {
   return (
     <>
-      <div className="min-h-screen flex items-center justify-center ">
+      <div className="min-h-full flex items-center justify-center ">
         <div className="p-8 text-center">
           <Text fontSize="6xl">Create Loan Request</Text>
           <Text fontSize="lg">You must sign up before you can create a loan request.</Text>
