@@ -126,7 +126,10 @@ function getTokenURI(uint256 tokenId) public returns (string memory) {
         FarmerLoanDetail memory _farmerLoanDetail = farmerLoanDetailsByTokenId[tokenId];
 
         // JSON data as a string
-        string memory jsonData = generateJSONData(tokenId, _lenderLoanDetail, _farmerLoanDetail);
+        string memory jsonDataFarmer = generateJSONDataFarmer(tokenId, _farmerLoanDetail);
+        string memory jsonDataLender = generateJSONDataLender(tokenId, _lenderLoanDetail);
+
+        string memory jsonData = string(abi.encodePacked(jsonDataFarmer, jsonDataLender));
 
         return string(
             abi.encodePacked(
@@ -136,33 +139,44 @@ function getTokenURI(uint256 tokenId) public returns (string memory) {
         );
     }
 
-    function generateJSONData(
-        uint256 tokenId,
-        LenderLoanDetail memory _lenderLoanDetail,
-        FarmerLoanDetail memory _farmerLoanDetail
-    ) internal pure returns (string memory) {
-        return string(
-            abi.encodePacked(
-                "{",
-                "\"lenderLoanDetail\":{",
-                "\"id\":", tokenId.toString(), ",",
-                "\"farmerLoanId\":", _lenderLoanDetail.farmerLoanId.toString(), ",",
-                "\"amount\":", _lenderLoanDetail.amount.toString(), ",",
-                "\"interest\":", _lenderLoanDetail.interest.toString(),
-                "},",
-                "\"farmerLoanDetail\": {",
-                "\"id\":", _farmerLoanDetail.id.toString(), ",",
-                "\"principleAmount\":", _farmerLoanDetail.principleAmount.toString(), ",",
-                "\"minInterest\":", _farmerLoanDetail.minInterest.toString(), ",",
-                "\"maxInterest\":", _farmerLoanDetail.maxInterest.toString(), ",",
-                "\"term\":", _farmerLoanDetail.term.toString(), ",",
-                "\"creditValue\":", _farmerLoanDetail.creditValue.toString(), ",",
-                "\"disbursmentDate\":", _farmerLoanDetail.disbursmentDate.toString(), ",",
-                "\"startDate\":", _farmerLoanDetail.startDate.toString(), ",",
-                "\"farmerRegistrationURI\":", _farmerLoanDetail.farmerRegistrationURI, "\"",
-                "}",
-                "}"
-            )
-        );
-    }    
+
+function generateJSONDataLender(
+    uint256 tokenId,
+    LenderLoanDetail memory _lenderLoanDetail
+) internal pure returns (string memory) {
+    return string(
+        abi.encodePacked(
+            "{",
+            "\"lenderLoanDetail\":{",
+            "\"id\":", tokenId.toString(), ",",
+            "\"farmerLoanId\":", _lenderLoanDetail.farmerLoanId.toString(), ",",
+            "\"amount\":", _lenderLoanDetail.amount.toString(), ",",
+            "\"interest\":", _lenderLoanDetail.interest.toString(),
+            "},"
+        )
+    );
+}    
+
+function generateJSONDataFarmer(
+    uint256 tokenId,
+    FarmerLoanDetail memory _farmerLoanDetail
+) internal pure returns (string memory) {
+    return string(
+        abi.encodePacked(
+            "\"farmerLoanDetail\": {",
+            "\"id\":", _farmerLoanDetail.id.toString(), ",",
+            "\"principleAmount\":", _farmerLoanDetail.principleAmount.toString(), ",",
+            "\"minInterest\":", _farmerLoanDetail.minInterest.toString(), ",",
+            "\"maxInterest\":", _farmerLoanDetail.maxInterest.toString(), ",",
+            "\"term\":", _farmerLoanDetail.term.toString(), ",",
+            "\"creditValue\":", _farmerLoanDetail.creditValue.toString(), ",",
+            "\"disbursmentDate\":", _farmerLoanDetail.disbursmentDate.toString(), ",",
+            "\"startDate\":", _farmerLoanDetail.startDate.toString(), ",",
+            "\"farmerRegistrationURI\":\"", _farmerLoanDetail.farmerRegistrationURI, "\"",
+            "}",
+            "}"
+        )
+    );
+}
+
 }
