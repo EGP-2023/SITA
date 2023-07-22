@@ -20,9 +20,16 @@ const deployAccountContracts: DeployFunction = async function (hre: HardhatRunti
     autoMine: true,
   });
 
-  await deploy("MockNFT", {
+  await deploy("DebtToken", {
     from: deployer,
-    args: ["MockNFT","MockNFT","URI"],
+    args: [1000000],
+    log: true,
+    autoMine: true,
+  });
+
+  await deploy("SitaLoan", {
+    from: deployer,
+    args: ["SitaLoan", "STLN", "Initial URI"], 
     log: true,
     autoMine: true,
   });
@@ -31,4 +38,4 @@ const deployAccountContracts: DeployFunction = async function (hre: HardhatRunti
 
 export default deployAccountContracts;
 
-deployAccountContracts.tags = ["SitaAccount","SitaAccountRegistry","MockNFT", "SitaLoan"];
+deployAccountContracts.tags = ["SitaAccount","SitaAccountRegistry","DebtToken", "SitaLoan"];
