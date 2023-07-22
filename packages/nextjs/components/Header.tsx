@@ -68,7 +68,7 @@ export default function Header() {
           </HStack>
           <Flex alignItems={"center"} mx={10}>
             {auth ? (
-              <Button variant={"solid"} bg={"brand.900"} size={"sm"}>
+              <Button variant={"solid"} bg={"brand.900"} size={"sm"} rounded={"3xl"}>
                 Sign Up
               </Button>
             ) : (
