@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { AppProps } from "next/app";
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { RainbowKitProvider, darkTheme, lightTheme } from "@rainbow-me/rainbowkit";
 import "@rainbow-me/rainbowkit/styles.css";
 import NextNProgress from "nextjs-progressbar";
@@ -14,6 +15,21 @@ import { useGlobalState } from "~~/services/store/store";
 import { wagmiConfig } from "~~/services/web3/wagmiConfig";
 import { appChains } from "~~/services/web3/wagmiConnectors";
 import "~~/styles/globals.css";
+
+const colors = {
+  brand: {
+    //green
+    900: "#C9E784",
+    //brown
+    800: "#711D3B",
+    //orange
+    700: "#FF8E6A",
+    //blue
+    600: "#E9F3F2",
+  },
+};
+
+const theme = extendTheme({ colors });
 
 const ScaffoldEthApp = ({ Component, pageProps }: AppProps) => {
   const price = useNativeCurrencyPrice();
@@ -35,20 +51,22 @@ const ScaffoldEthApp = ({ Component, pageProps }: AppProps) => {
   return (
     <WagmiConfig config={wagmiConfig}>
       <NextNProgress />
-      <RainbowKitProvider
-        chains={appChains.chains}
-        avatar={BlockieAvatar}
-        theme={isDarkTheme ? darkTheme() : lightTheme()}
-      >
-        <div className="flex flex-col min-h-screen">
-          {/* <Header /> */}
-          <main className="relative flex flex-col flex-1">
-            <Component {...pageProps} />
-          </main>
-          {/* <Footer /> */}
-        </div>
-        <Toaster />
-      </RainbowKitProvider>
+      <ChakraProvider theme={theme}>
+        <RainbowKitProvider
+          chains={appChains.chains}
+          avatar={BlockieAvatar}
+          theme={isDarkTheme ? darkTheme() : lightTheme()}
+        >
+          <div className="flex flex-col min-h-screen">
+            {/* <Header /> */}
+            <main className="relative flex flex-col flex-1">
+              <Component {...pageProps} />
+            </main>
+            {/* <Footer /> */}
+          </div>
+          <Toaster />
+        </RainbowKitProvider>
+      </ChakraProvider>
     </WagmiConfig>
   );
 };
