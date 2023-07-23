@@ -142,7 +142,7 @@ const ExampleUI: NextPage = () => {
               </Flex>
               <MinMax min={"6 months"} max={"72 months"} />
 
-              <Flex alignItems={"center"} className="text-justify bg-teal-50 rounded-3xl px-2" w={"740px"}>
+              <Flex alignItems={"center"} className="text-justify bg-teal-50 rounded-3xl px-2 mt-4" w={"740px"}>
                 <Text fontSize="2xl">Est Monthly Payment</Text>
                 <Box flex={1} />
                 <Text fontSize="2xl">-</Text>
