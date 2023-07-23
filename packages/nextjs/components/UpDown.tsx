@@ -9,6 +9,8 @@ console.log("process.env.NEXT_PUBLIC_WLD_ACTION_NAME", process.env.NEXT_PUBLIC_W
 console.log("process.env.NEXT_PUBLIC_WLD_APP_ID", process.env.NEXT_PUBLIC_WLD_APP_ID);
 
 export default function WorldButton() {
+  let value = "up";
+
   const onSuccess = (result: ISuccessResult) => {
     // This is where you should perform frontend actions once a user has been verified, such as redirecting to a new page
     window.alert("Successfully verified with World ID! Your nullifier hash is: " + result.nullifier_hash);
@@ -21,7 +23,7 @@ export default function WorldButton() {
       nullifier_hash: result.nullifier_hash,
       proof: result.proof,
       credential_type: result.credential_type,
-      action: process.env.NEXT_PUBLIC_WLD_ACTION_NAME,
+      action: "up",
       signal: "",
     };
     console.log("Sending proof to backend for verification:\n", JSON.stringify(reqBody)); // Log the proof being sent to our backend for visibility
@@ -53,21 +55,6 @@ export default function WorldButton() {
         {({ open }) => (
           <Button mx={6} rounded={"3xl"} variant={"solid"} bg={"brand.900"} size={"lg"} onClick={open}>
             <MdThumbUpOffAlt />
-          </Button>
-        )}
-      </IDKitWidget>
-
-      <IDKitWidget
-        action={"down"}
-        app_id={process.env.NEXT_PUBLIC_WLD_APP_ID!}
-        onSuccess={onSuccess}
-        handleVerify={handleProof}
-        credential_types={[CredentialType.Orb, CredentialType.Phone]}
-        autoClose
-      >
-        {({ open }) => (
-          <Button mx={6} rounded={"3xl"} variant={"solid"} bg={"brand.900"} size={"lg"} onClick={open}>
-            <MdThumbDownOffAlt />
           </Button>
         )}
       </IDKitWidget>
