@@ -1,21 +1,30 @@
-import BiconomyButton from "./BiconomyButton";
-import FarmerCard from "./FarmerCard";
-import IPFSUploader from "./IPFSUploader";
-import Map from "./Map";
-import WalletConnectButton from "./WalletConnectButton";
-import WorldButton from "./WorldButton";
+import { Link } from "@chakra-ui/next-js";
+import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
+import type { NextPage } from "next";
 
-export default function Main() {
+const ExampleUI: NextPage = () => {
   return (
     <>
-      <h1>Main</h1>
-      <WorldButton />
-      <BiconomyButton />
-      <WalletConnectButton/>
-      <IPFSUploader />
-      <Map />
+      <div className="min-h-full flex items-center justify-center ">
+        <div className="p-8 text-center">
+          <Text fontSize="6xl">Create Loan Request</Text>
+          <Text fontSize="lg">You must sign up before you can create a loan request.</Text>
 
-      <FarmerCard />
+          <Link href="/second">
+            <Button variant={"solid"} bg={"black"} color={"white"} rounded={"3xl"} size={"lg"}>
+              Sign Up
+            </Button>
+          </Link>
+
+          <Flex justifyContent="center">
+            <Box boxSize="sm">
+              <Image src="lock.png" alt="Dan Abramov" />
+            </Box>
+          </Flex>
+        </div>
+      </div>
     </>
   );
-}
+};
+
+export default ExampleUI;

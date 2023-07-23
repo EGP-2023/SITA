@@ -1,3 +1,4 @@
+import { Link } from "@chakra-ui/next-js";
 import { Box, Button, Flex, Image, Text, Textarea, VStack } from "@chakra-ui/react";
 import type { NextPage } from "next";
 
@@ -50,9 +51,11 @@ const ExampleUI: NextPage = () => {
               </Flex>
             </VStack>
           </Flex>
-          <Button mt={24} variant={"solid"} bg={"black"} color={"white"} rounded={"3xl"} size={"lg"}>
-            Next
-          </Button>
+          <Link href="/fourth">
+            <Button mt={24} variant={"solid"} bg={"black"} color={"white"} rounded={"3xl"} size={"lg"}>
+              Next
+            </Button>
+          </Link>
         </div>
       </div>
     </>
