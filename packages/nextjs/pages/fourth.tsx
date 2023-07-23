@@ -3,10 +3,14 @@ import {
   Box,
   Button,
   Flex,
-  Image,
   Input,
-  InputGroup,
-  InputLeftElement,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   RangeSlider,
   RangeSliderFilledTrack,
   RangeSliderThumb,
@@ -16,14 +20,30 @@ import {
   SliderThumb,
   SliderTrack,
   Text,
-  Textarea,
   VStack,
+  useDisclosure,
 } from "@chakra-ui/react";
+import { format } from "date-fns";
 import type { NextPage } from "next";
+import { DayPicker } from "react-day-picker";
+import "react-day-picker/dist/style.css";
 
-const ExampleUI: NextPage = () => {
+export function MyDayPicker({ value, setValue }) {
+  //   const [selected, setSelected] = useState<Date>();
+
+  let footer = <p>Please pick a day.</p>;
+  if (value) {
+    footer = <p>You picked {format(value, "PP")}.</p>;
+  }
+  return <DayPicker mode="single" selected={value} onSelect={setValue} footer={footer} />;
+}
+
+function ExampleUI() {
   const [rateRange, setRateRange] = useState([`3%`, `6%`]);
   const [repaymentPeriod, setRepaymentPeriod] = useState(`12m`);
+
+  const [repaymentStartDate, setRepaymentStartDate] = useState(new Date());
+  const [disbursementDate, setDisbursementDate] = useState(new Date());
 
   function handleRateRangeChange(val: number[]) {
     setRateRange([`${val[0]}%`, `${val[1]}%`]);
@@ -142,11 +162,33 @@ const ExampleUI: NextPage = () => {
               </Flex>
               <MinMax min={"6 months"} max={"72 months"} />
 
-              <Flex alignItems={"center"} className="text-justify bg-teal-50 rounded-3xl px-2 mt-4" w={"740px"}>
+              <Flex alignItems={"center"} className="text-justify bg-teal-50 rounded-3xl px-2 my-6" w={"740px"}>
                 <Text fontSize="2xl">Est Monthly Payment</Text>
                 <Box flex={1} />
                 <Text fontSize="2xl">-</Text>
               </Flex>
+
+              <Flex alignItems={"center"} className="text-justify" w={"740px"}>
+                <Text flex={1} fontSize="2xl">
+                  Disbursement Date
+                </Text>
+                <Text mr={4} fontSize={"lg"}>
+                  {format(disbursementDate, "PP")}
+                </Text>
+                <MyModal value={disbursementDate} setValue={setDisbursementDate} />
+              </Flex>
+              <Tip text={"The date you can access funds"} />
+
+              <Flex alignItems={"center"} className="text-justify" w={"740px"}>
+                <Text flex={1} fontSize="2xl">
+                  Repayment Start Date
+                </Text>
+                <Text mr={4} fontSize={"lg"}>
+                  {format(repaymentStartDate, "PP")}
+                </Text>
+                <MyModal value={repaymentStartDate} setValue={setRepaymentStartDate} />
+              </Flex>
+              <Tip text={"The date repayments start"} />
             </VStack>
           </Flex>
           <Button mt={24} variant={"solid"} bg={"black"} color={"white"} rounded={"3xl"} size={"lg"}>
@@ -156,7 +198,7 @@ const ExampleUI: NextPage = () => {
       </div>
     </>
   );
-};
+}
 
 export default ExampleUI;
 
@@ -181,3 +223,30 @@ const MinMax = ({ min, max }) => {
     </Flex>
   );
 };
+
+function MyModal({ value, setValue }) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  return (
+    <>
+      <Button onClick={onOpen}>Pick Date</Button>
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Modal Title</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <MyDayPicker value={value} setValue={setValue} />
+          </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={onClose}>
+              Close
+            </Button>
+            {/* <Button variant="ghost">Secondary Action</Button> */}
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
+  );
+}
