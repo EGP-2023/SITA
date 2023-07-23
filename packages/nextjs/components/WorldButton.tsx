@@ -1,11 +1,11 @@
 // import type { any } from "./api/verify";
+import { Button } from "@chakra-ui/react";
 import { CredentialType, IDKitWidget } from "@worldcoin/idkit";
 import type { ISuccessResult } from "@worldcoin/idkit";
 
-console.log("process.env.NEXT_PUBLIC_WLD_API_BASE_URL", process.env.NEXT_PUBLIC_WLD_API_BASE_URL)
-console.log("process.env.NEXT_PUBLIC_WLD_ACTION_NAME", process.env.NEXT_PUBLIC_WLD_ACTION_NAME)
-console.log("process.env.NEXT_PUBLIC_WLD_APP_ID", process.env.NEXT_PUBLIC_WLD_APP_ID)
-
+console.log("process.env.NEXT_PUBLIC_WLD_API_BASE_URL", process.env.NEXT_PUBLIC_WLD_API_BASE_URL);
+console.log("process.env.NEXT_PUBLIC_WLD_ACTION_NAME", process.env.NEXT_PUBLIC_WLD_ACTION_NAME);
+console.log("process.env.NEXT_PUBLIC_WLD_APP_ID", process.env.NEXT_PUBLIC_WLD_APP_ID);
 
 export default function WorldButton() {
   const onSuccess = (result: ISuccessResult) => {
@@ -40,24 +40,19 @@ export default function WorldButton() {
   };
 
   return (
-    <div>
-      <div className="flex flex-col items-center justify-center align-middle h-screen">
-        <p className="text-2xl mb-5">World ID Cloud Template</p>
-        <IDKitWidget
-          action={process.env.NEXT_PUBLIC_WLD_ACTION_NAME!}
-          app_id={process.env.NEXT_PUBLIC_WLD_APP_ID!}
-          onSuccess={onSuccess}
-          handleVerify={handleProof}
-          credential_types={[CredentialType.Orb, CredentialType.Phone]}
-          autoClose
-        >
-          {({ open }) => (
-            <button className="border border-black rounded-md" onClick={open}>
-              <div className="mx-3 my-1">Verify with World ID</div>
-            </button>
-          )}
-        </IDKitWidget>
-      </div>
-    </div>
+    <IDKitWidget
+      action={process.env.NEXT_PUBLIC_WLD_ACTION_NAME!}
+      app_id={process.env.NEXT_PUBLIC_WLD_APP_ID!}
+      onSuccess={onSuccess}
+      handleVerify={handleProof}
+      credential_types={[CredentialType.Orb, CredentialType.Phone]}
+      autoClose
+    >
+      {({ open }) => (
+        <Button rounded={"3xl"} variant={"solid"} bg={"brand.900"} size={"lg"} onClick={open}>
+          Verify with World ID
+        </Button>
+      )}
+    </IDKitWidget>
   );
 }
