@@ -4,11 +4,16 @@ import { Box, Button, Flex, Image, Text, Textarea, VStack } from "@chakra-ui/rea
 // import fs from "fs";
 import type { NextPage } from "next";
 import Map from "~~/components/Map";
+import { ipfsUploadMetadata } from "~~/utils/ipfsUpload";
 
 // console.log(fs);
 
 const ExampleUI: NextPage = () => {
   const [area, setArea] = useState(0);
+
+  const handleUploadToIPFS = ()=> {
+    ipfsUploadMetadata(area);
+  }
 
   return (
     <>
@@ -63,7 +68,7 @@ const ExampleUI: NextPage = () => {
             </VStack>
           </Flex>
           <Link href="/fourth">
-            <Button mt={24} variant={"solid"} bg={"black"} color={"white"} rounded={"3xl"} size={"lg"}>
+            <Button mt={24} variant={"solid"} bg={"black"} color={"white"} rounded={"3xl"} size={"lg"} onClick={handleUploadToIPFS}>
               Next
             </Button>
           </Link>
