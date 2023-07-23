@@ -12,7 +12,9 @@ const ExampleUI: NextPage = () => {
           <Flex justifyContent="center">
             <VStack spacing={4} align="stretch">
               <Box className="text-justify" w={"740px"}>
-                <Text fontSize="2xl">Add Description</Text>
+                <Text className="font-bold" fontSize="2xl">
+                  Add Description
+                </Text>
                 <Textarea
                   h={"234px"}
                   bg={"gray.100"}
@@ -21,14 +23,18 @@ const ExampleUI: NextPage = () => {
               </Box>
 
               <Flex alignItems={"center"} className="text-justify" w={"740px"}>
-                <Text fontSize="2xl">Add Images</Text>
+                <Text className="font-bold" fontSize="2xl">
+                  Add Images
+                </Text>
                 <Box flex={1} />
                 <Button rounded={"3xl"} variant={"solid"} bg={"brand.900"} size={"lg"}>
                   Add
                 </Button>
               </Flex>
               <Flex alignItems={"center"} className="text-justify" w={"740px"}>
-                <Text fontSize="2xl">Add Land Info</Text>
+                <Text className="font-bold" fontSize="2xl">
+                  Add Land Info
+                </Text>
                 <Box flex={1} />
                 <Button rounded={"3xl"} variant={"solid"} bg={"brand.900"} size={"lg"}>
                   Add
@@ -36,7 +42,9 @@ const ExampleUI: NextPage = () => {
               </Flex>
 
               <Flex alignItems={"center"} className="text-justify bg-teal-50 rounded-3xl px-2" w={"740px"}>
-                <Text fontSize="2xl">Estimated Credit Value</Text>
+                <Text className="font-bold" fontSize="2xl">
+                  Estimated Credit Value
+                </Text>
                 <Box flex={1} />
                 <Text fontSize="2xl">-</Text>
               </Flex>
