@@ -119,7 +119,7 @@ contract SitaLoan is ERC721, Ownable, ReentrancyGuard {
 
         return nextLenderLoanDetailId - 1;
     }
-    
+
 function createFarmerLoanDetail(
         uint256 principleAmount,
         uint256 minInterest,
@@ -170,7 +170,7 @@ function getTokenURI(uint256 tokenId) public returns (string memory) {
 function generateJSONDataLender(
     uint256 tokenId,
     LenderLoanDetail memory _lenderLoanDetail
-) internal pure returns (string memory) {
+) public pure returns (string memory) {
     return string(
         abi.encodePacked(
             "{",
@@ -187,7 +187,7 @@ function generateJSONDataLender(
 function generateJSONDataFarmer(
     uint256 tokenId,
     FarmerLoanDetail memory _farmerLoanDetail
-) internal pure returns (string memory) {
+) public pure returns (string memory) {
     string memory farmerDataPart1 = generateFarmerDataPart1(_farmerLoanDetail);
     string memory farmerDataPart2 = generateFarmerDataPart2(_farmerLoanDetail);
 
