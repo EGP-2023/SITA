@@ -31,7 +31,7 @@
     "@turf/turf": "^6.5.0",
     "@uniswap/sdk-core": "^4.0.1",
     "@uniswap/v2-sdk": "^3.0.1",
-    "@walletconnect/web3-provider": "^1.7.8",
+    "@walletconnect/web3-provider": "^1.8.0",
     "@worldcoin/idkit": "^0.5.1",
     "daisyui": "^2.31.0",
     "date-fns": "^2.30.0",
@@ -39,6 +39,7 @@
     "mapbox-gl": "^2.15.0",
     "next": "^13.1.6",
     "nextjs-progressbar": "^0.0.16",
+    "nft.storage": "^7.1.1",
     "react": "^18.2.0",
     "react-blockies": "^1.4.1",
     "react-copy-to-clipboard": "^5.1.0",
@@ -51,6 +52,7 @@
     "usehooks-ts": "^2.7.2",
     "viem": "1.2.1",
     "wagmi": "1.3.2",
+    "web3modal": "^1.9.12",
     "zustand": "^4.3.9"
   },
   "devDependencies": {
