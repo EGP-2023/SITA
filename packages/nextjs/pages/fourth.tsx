@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Box,
   Button,
@@ -17,6 +18,11 @@ import {
 import type { NextPage } from "next";
 
 const ExampleUI: NextPage = () => {
+  const [rateRange, setRateRange] = useState([`3%`, `6%`]);
+
+  function handleRateRangeChange(val: number[]) {
+    setRateRange([`${val[0]}%`, `${val[1]}%`]);
+  }
   return (
     <>
       <div className="min-h-full flex items-center justify-center ">
@@ -31,7 +37,7 @@ const ExampleUI: NextPage = () => {
                   Enter Loan Principal
                 </Text>
                 {/* <Box flex={1} /> */}
-
+                <Box fontSize={"lg"}>$</Box>
                 <Input
                   className="text-center"
                   w={"150px"}
@@ -39,7 +45,7 @@ const ExampleUI: NextPage = () => {
                   bg={"gray.100"}
                   size={"lg"}
                   variant="filled"
-                  placeholder="$0.00"
+                  placeholder="0.00"
                 />
               </Flex>
               <Tip text={"Max amount you’re recommended for is $5,000"} />
@@ -57,6 +63,7 @@ const ExampleUI: NextPage = () => {
                   size={"lg"}
                   variant="filled"
                   placeholder="3%"
+                  value={rateRange[0]}
                 />
                 <Box mx={4} fontSize={"md"}>
                   to
@@ -69,6 +76,7 @@ const ExampleUI: NextPage = () => {
                   size={"lg"}
                   variant="filled"
                   placeholder="6%"
+                  value={rateRange[1]}
                 />
               </Flex>
 
@@ -78,7 +86,7 @@ const ExampleUI: NextPage = () => {
                   max={12}
                   aria-label={["min", "max"]}
                   defaultValue={[3, 6]}
-                  onChangeEnd={val => console.log(val)}
+                  onChangeEnd={handleRateRangeChange}
                   size={"lg"}
                 >
                   <RangeSliderTrack>
