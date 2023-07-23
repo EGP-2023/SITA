@@ -58,6 +58,10 @@ export default function WorldButton() {
           </Button>
         )}
       </IDKitWidget>
+
+      <Button mx={6} rounded={"3xl"} variant={"solid"} bg={"brand.900"} size={"lg"}>
+        <MdThumbDownOffAlt />
+      </Button>
     </Flex>
   );
 }
