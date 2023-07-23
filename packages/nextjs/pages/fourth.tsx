@@ -11,6 +11,10 @@ import {
   RangeSliderFilledTrack,
   RangeSliderThumb,
   RangeSliderTrack,
+  Slider,
+  SliderFilledTrack,
+  SliderThumb,
+  SliderTrack,
   Text,
   Textarea,
   VStack,
@@ -19,9 +23,14 @@ import type { NextPage } from "next";
 
 const ExampleUI: NextPage = () => {
   const [rateRange, setRateRange] = useState([`3%`, `6%`]);
+  const [repaymentPeriod, setRepaymentPeriod] = useState(`12m`);
 
   function handleRateRangeChange(val: number[]) {
     setRateRange([`${val[0]}%`, `${val[1]}%`]);
+  }
+
+  function handleRepaymentPeriodChange(val: number) {
+    setRepaymentPeriod(`${val}m`);
   }
   return (
     <>
@@ -113,24 +122,23 @@ const ExampleUI: NextPage = () => {
                   size={"lg"}
                   variant="filled"
                   placeholder="12m"
+                  value={repaymentPeriod}
                 />
               </Flex>
 
               <Flex alignItems={"center"} className="text-justify" w={"740px"}>
-                <RangeSlider
-                  min={0}
-                  max={12}
-                  aria-label={["min", "max"]}
-                  defaultValue={[3, 6]}
-                  onChangeEnd={val => console.log(val)}
-                  size={"lg"}
+                <Slider
+                  min={6}
+                  max={72}
+                  aria-label="slider-ex-1"
+                  defaultValue={12}
+                  onChangeEnd={handleRepaymentPeriodChange}
                 >
-                  <RangeSliderTrack>
-                    <RangeSliderFilledTrack color={"black"} bg={"black"} />
-                  </RangeSliderTrack>
-                  <RangeSliderThumb boxSize={6} index={0} />
-                  <RangeSliderThumb boxSize={6} index={1} />
-                </RangeSlider>
+                  <SliderTrack>
+                    <SliderFilledTrack color={"black"} bg={"black"} />
+                  </SliderTrack>
+                  <SliderThumb boxSize={6} />
+                </Slider>
               </Flex>
               <MinMax min={"6 months"} max={"72 months"} />
 
