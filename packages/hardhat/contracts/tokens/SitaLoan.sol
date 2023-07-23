@@ -127,7 +127,8 @@ function createFarmerLoanDetail(
         uint256 term,
         uint256 creditValue,
         uint256 disbursmentDate,
-        uint256 startDate
+        uint256 startDate,
+        string memory farmerRegistrationURI
     ) public returns (uint256) {
         FarmerLoanDetail memory newFarmerLoanDetail = FarmerLoanDetail({
             id: nextFarmerLoanDetailId,
@@ -137,7 +138,8 @@ function createFarmerLoanDetail(
             term: term,
             creditValue: creditValue,
             disbursmentDate: disbursmentDate,
-            startDate: startDate
+            startDate: startDate,
+            farmerRegistrationURI: farmerRegistrationURI
         });
 
         farmerLoanDetails[nextFarmerLoanDetailId] = newFarmerLoanDetail;
