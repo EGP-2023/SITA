@@ -1,21 +1,455 @@
-import fs from 'fs';
-import dotenv from 'dotenv';
 import { ethers } from 'ethers';
 import abi from './FunctionsConsumer.js';
 
-const main = async () => {
-    dotenv.config();
-    const source = fs.readFileSync("./credit.js", "utf8").toString()
-    const provider = new ethers.providers.JsonRpcProvider(`https://polygon-mumbai.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`);
-    const signer = new ethers.Wallet(process.env.PRIVATE_KEY, provider)
-    const consumer = new ethers.Contract("0x45De681cdacbC9838656613Ba3c549273b354ac0", abi, signer)
+const source = `
+const countryCodes = {
+  "Afghanistan": "2",
+  "Africa": "5100",
+  "Åland Islands": "284",
+  "Albania": "3",
+  "Algeria": "4",
+  "American Samoa": "5",
+  "Americas": "5200",
+  "Andorra": "6",
+  "Angola": "7",
+  "Anguilla": "258",
+  "Annex I countries": "5848",
+  "Antarctic Region": "5600",
+  "Antarctica": "30",
+  "Antigua and Barbuda": "8",
+  "Argentina": "9",
+  "Armenia": "1",
+  "Aruba": "22",
+  "Asia": "5300",
+  "Australia": "10",
+  "Australia and New Zealand": "5501",
+  "Austria": "11",
+  "Azerbaijan": "52",
+  "Bahamas": "12",
+  "Bahrain": "13",
+  "Bangladesh": "16",
+  "Barbados": "14",
+  "Belarus": "57",
+  "Belgium": "255",
+  "Belgium-Luxembourg": "15",
+  "Belize": "23",
+  "Benin": "53",
+  "Bermuda": "17",
+  "Bhutan": "18",
+  "Bolivia (Plurinational State of)": "19",
+  "Bonaire, Sint Eustatius and Saba": "278",
+  "Bosnia and Herzegovina": "80",
+  "Botswana": "20",
+  "Bouvet Island": "31",
+  "Brazil": "21",
+  "British Virgin Islands": "239",
+  "Brunei Darussalam": "26",
+  "Bulgaria": "27",
+  "Burkina Faso": "233",
+  "Burundi": "29",
+  "Cabo Verde": "35",
+  "Cambodia": "115",
+  "Cameroon": "32",
+  "Canada": "33",
+  "Caribbean": "5206",
+  "Caucasus and Central Asia": "5857",
+  "Cayman Islands": "36",
+  "Central African Republic": "37",
+  "Central America": "5204",
+  "Central Asia": "5301",
+  "Central Asia and Southern Asia": "5306",
+  "Chad": "39",
+  "Chagos Archipelago": "24",
+  "Channel Islands": "259",
+  "Chile": "40",
+  "China": "351",
+  "China, Hong Kong SAR": "96",
+  "China, Macao SAR": "128",
+  "China, mainland": "41",
+  "China, Taiwan Province of": "214",
+  "Christmas Island": "42",
+  "Cocos (Keeling) Islands": "43",
+  "Colombia": "44",
+  "Comoros": "45",
+  "Congo": "46",
+  "Cook Islands": "47",
+  "Costa Rica": "48",
+  "Côte d'Ivoire": "107",
+  "Croatia": "98",
+  "Cuba": "49",
+  "Curaçao": "279",
+  "Cyprus": "50",
+  "Czechia": "167",
+  "Czechoslovakia": "51",
+  "Democratic People's Republic of Korea": "116",
+  "Democratic Republic of the Congo": "250",
+  "Denmark": "54",
+  "Developed regions (Europe, Cyprus, Israel, Northern America, Japan, Australia & New Zealand)": "5827",
+  "Developing regions": "5826",
+  "Djibouti": "72",
+  "Dominica": "55",
+  "Dominican Republic": "56",
+  "Eastern Africa": "5101",
+  "Eastern Asia": "5302",
+  "Eastern Asia (excluding Japan and China)": "5829",
+  "Eastern Asia (excluding Japan)": "5825",
+  "Eastern Asia and South-eastern Asia": "5307",
+  "Eastern Europe": "5401",
+  "Ecuador": "58",
+  "Egypt": "59",
+  "El Salvador": "60",
+  "Equatorial Guinea": "61",
+  "Eritrea": "178",
+  "Estonia": "63",
+  "Eswatini": "209",
+  "Ethiopia": "238",
+  "Ethiopia PDR": "62",
+  "Europe": "5400",
+  "Europe, Northern America, Australia and New Zealand": "5777",
+  "European Union (27)": "5707",
+  "Falkland Islands (Malvinas)": "65",
+  "FAO Major Fishing Area: Atlantic, Eastern Central (14.4.1)": "99029",
+  "FAO Major Fishing Area: Atlantic, Northeast (14.4.1)": "99024",
+  "FAO Major Fishing Area: Atlantic, Northwest (14.4.1)": "99023",
+  "FAO Major Fishing Area: Atlantic, Southeast (14.4.1)": "99026",
+  "FAO Major Fishing Area: Atlantic, Southwest (14.4.1)": "99030",
+  "FAO Major Fishing Area: Atlantic, Western Central (14.4.1)": "99028",
+  "FAO Major Fishing Area: Indian Ocean, Eastern (14.4.1)": "99025",
+  "FAO Major Fishing Area: Indian Ocean, Western (14.4.1)": "99027",
+  "FAO Major Fishing Area: Mediterranean and Black Sea (14.4.1)": "99032",
+  "FAO Major Fishing Area: Pacific, Eastern Central (14.4.1)": "99018",
+  "FAO Major Fishing Area: Pacific, Northeast (14.4.1)": "99019",
+  "FAO Major Fishing Area: Pacific, Northwest (14.4.1)": "99020",
+  "FAO Major Fishing Area: Pacific, Southeast (14.4.1)": "99031",
+  "FAO Major Fishing Area: Pacific, Southwest (14.4.1)": "99022",
+  "FAO Major Fishing Area: Pacific, Western Central (14.4.1)": "99021",
+  "Faroe Islands": "64",
+  "Fiji": "66",
+  "Finland": "67",
+  "France": "68",
+  "French Guiana": "69",
+  "French Polynesia": "70",
+  "French Southern Territories": "71",
+  "Gabon": "74",
+  "Gambia": "75",
+  "Georgia": "73",
+  "Germany": "79",
+  "Germany Fr": "78",
+  "Germany Nl": "77",
+  "Ghana": "81",
+  "Gibraltar": "82",
+  "Greece": "84",
+  "Greenland": "85",
+  "Grenada": "86",
+  "Guadeloupe": "87",
+  "Guam": "88",
+  "Guatemala": "89",
+  "Guernsey": "274",
+  "Guinea": "90",
+  "Guinea-Bissau": "175",
+  "Guyana": "91",
+  "Haiti": "93",
+  "Heard and McDonald Islands": "92",
+  "High-income economies": "9010",
+  "Holy See": "94",
+  "Honduras": "95",
+  "Hungary": "97",
+  "Iceland": "99",
+  "India": "100",
+  "Indonesia": "101",
+  "International Centres (FAO) (2.5.1.a)": "5823",
+  "Iran (Islamic Republic of)": "102",
+  "Iraq": "103",
+  "Ireland": "104",
+  "Isle of Man": "264",
+  "Israel": "105",
+  "Italy": "106",
+  "Jamaica": "109",
+  "Japan": "110",
+  "Jersey": "283",
+  "Johnston Island": "111",
+  "Jordan": "112",
+  "Kazakhstan": "108",
+  "Kenya": "114",
+  "Kiribati": "83",
+  "Kuwait": "118",
+  "Kyrgyzstan": "113",
+  "Land Locked Developing Countries": "5802",
+  "Lao People's Democratic Republic": "120",
+  "Latin America and the Caribbean": "5205",
+  "Latvia": "119",
+  "Least Developed Countries": "5801",
+  "Lebanon": "121",
+  "Lesotho": "122",
+  "Liberia": "123",
+  "Libya": "124",
+  "Liechtenstein": "125",
+  "Lithuania": "126",
+  "Low income economies": "5858",
+  "Low Income Food Deficit Countries": "5815",
+  "Lower-middle-income economies": "5859",
+  "Luxembourg": "256",
+  "Madagascar": "129",
+  "Malawi": "130",
+  "Malaysia": "131",
+  "Maldives": "132",
+  "Mali": "133",
+  "Malta": "134",
+  "Marshall Islands": "127",
+  "Martinique": "135",
+  "Mauritania": "136",
+  "Mauritius": "137",
+  "Mayotte": "270",
+  "Melanesia": "5502",
+  "Mexico": "138",
+  "Micronesia": "5503",
+  "Micronesia (Federated States of)": "145",
+  "Middle Africa": "5102",
+  "Midway Island": "139",
+  "Monaco": "140",
+  "Mongolia": "141",
+  "Montenegro": "273",
+  "Montserrat": "142",
+  "Morocco": "143",
+  "Mozambique": "144",
+  "Myanmar": "28",
+  "Namibia": "147",
+  "Nauru": "148",
+  "Nepal": "149",
+  "Net Food Importing Developing Countries": "5817",
+  "Netherlands (Kingdom of the)": "150",
+  "Netherlands Antilles (former)": "151",
+  "New Caledonia": "153",
+  "New Zealand": "156",
+  "Nicaragua": "157",
+  "Niger": "158",
+  "Nigeria": "159",
+  "Niue": "160",
+  "Non-Annex I countries": "5849",
+  "Norfolk Island": "161",
+  "North and Central America": "336",
+  "North Macedonia": "154",
+  "Northern Africa": "5103",
+  "Northern Africa (excluding Sudan)": "429",
+  "Northern America": "5203",
+  "Northern America and Europe": "5208",
+  "Northern Europe": "5402",
+  "Northern Mariana Islands": "163",
+  "Norway": "162",
+  "Oceania": "5500",
+  "Oceania excluding Australia and New Zealand": "5807",
+  "OECD": "5873",
+  "Oman": "221",
+  "Pacific Islands Trust Territory": "164",
+  "Pakistan": "165",
+  "Palau": "180",
+  "Palestine": "299",
+  "Panama": "166",
+  "Papua New Guinea": "168",
+  "Paraguay": "169",
+  "Peru": "170",
+  "Philippines": "171",
+  "Pitcairn": "172",
+  "Poland": "173",
+  "Polynesia": "5504",
+  "Portugal": "174",
+  "Puerto Rico": "177",
+  "Qatar": "179",
+  "Regional Centres (FAO) (2.5.1.a)": "5822",
+  "Republic of Korea": "117",
+  "Republic of Moldova": "146",
+  "Réunion": "182",
+  "Romania": "183",
+  "Russian Federation": "185",
+  "Rwanda": "184",
+  "Saint Barthélemy": "282",
+  "Saint Helena, Ascension and Tristan da Cunha": "187",
+  "Saint Kitts and Nevis": "188",
+  "Saint Lucia": "189",
+  "Saint Martin (French part)": "281",
+  "Saint Pierre and Miquelon": "190",
+  "Saint Vincent and the Grenadines": "191",
+  "Samoa": "244",
+  "San Marino": "192",
+  "Sao Tome and Principe": "193",
+  "Sark": "285",
+  "Saudi Arabia": "194",
+  "Senegal": "195",
+  "Serbia": "272",
+  "Serbia and Montenegro": "186",
+  "Seychelles": "196",
+  "Sierra Leone": "197",
+  "Singapore": "200",
+  "Sint Maarten (Dutch part)": "280",
+  "Slovakia": "199",
+  "Slovenia": "198",
+  "Small Island Developing States": "5803",
+  "Solomon Islands": "25",
+  "Somalia": "201",
+  "South Africa": "202",
+  "South America": "5207",
+  "South Georgia and the South Sandwich Islands": "271",
+  "South Sudan": "277",
+  "South-eastern Asia": "5304",
+  "Southern Africa": "5104",
+  "Southern Asia": "5303",
+  "Southern Asia (excluding India)": "5855",
+  "Southern Europe": "5403",
+  "Spain": "203",
+  "Sri Lanka": "38",
+  "Sub-Saharan Africa": "420",
+  "Sub-Saharan Africa (including Sudan)": "5810",
+  "Sudan": "276",
+  "Sudan (former)": "206",
+  "Suriname": "207",
+  "Svalbard and Jan Mayen Islands": "260",
+  "Sweden": "210",
+  "Switzerland": "211",
+  "Syrian Arab Republic": "212",
+  "Tajikistan": "208",
+  "Thailand": "216",
+  "Timor-Leste": "176",
+  "Togo": "217",
+  "Tokelau": "218",
+  "Tonga": "219",
+  "Trinidad and Tobago": "220",
+  "Tunisia": "222",
+  "Türkiye": "223",
+  "Turkmenistan": "213",
+  "Turks and Caicos Islands": "224",
+  "Tuvalu": "227",
+  "Uganda": "226",
+  "Ukraine": "230",
+  "United Arab Emirates": "225",
+  "United Kingdom of Great Britain and Northern Ireland": "229",
+  "United Republic of Tanzania": "215",
+  "United States Minor Outlying Islands": "232",
+  "United States of America": "231",
+  "United States Virgin Islands": "240",
+  "Upper-middle-income economies": "9011",
+  "Uruguay": "234",
+  "USSR": "228",
+  "Uzbekistan": "235",
+  "Vanuatu": "155",
+  "Venezuela (Bolivarian Republic of)": "236",
+  "Viet Nam": "237",
+  "Wake Island": "242",
+  "Wallis and Futuna Islands": "243",
+  "Western Africa": "5105",
+  "Western Asia": "5305",
+  "Western Asia (exc. Armenia, Azerbaijan, Cyprus, Israel and Georgia)": "5828",
+  "Western Asia and Northern Africa": "5308",
+  "Western Europe": "5404",
+  "Western Sahara": "205",
+  "World": "5000",
+  "Yemen": "249",
+  "Yemen Ar Rp": "246",
+  "Yemen Dem": "247",
+  "Yugoslav SFR": "248",
+  "Zambia": "251",
+  "Zimbabwe": "181"
+}
+
+//const country = args[0];
+const country = 'India';
+//const area = args[1];
+const area = 1000000;
+//TO-DO: get rainfall/actualWater
+const actualWater = 600;
+const countryCode = countryCodes[country];
+const REQUIREMENT_NITROGEN_LOW = 80;
+const REQUIREMENT_NITROGEN_HIGH = 150;
+const REQUIREMENT_PHOSPHORUS_LOW = 30;
+const REQUIREMENT_PHOSPHORUS_HIGH = 40;
+const REQUIREMENT_POTASSIUM_LOW = 40;
+const REQUIREMENT_POTASSIUM_HIGH = 80;
+const REQUIREMENT_WATER_LOW = 500;
+const REQUIREMENT_WATER_HIGH = 800;
+const REQUIREMENT_TEMPERATURE_LOW = 18;
+const REQUIREMENT_TEMPERATURE_HIGH = 33;
+const EXPECTED_YIELD = 6;
+const WEIGHT_NITROGEN = 0.35;
+const WEIGHT_PHOSPHORUS = 0.25;
+const WEIGHT_POTASSIUM = 0.25;
+const WEIGHT_WATER = 0.1;
+const WEIGHT_TEMPERATURE = 0.05;
+let yieldValue = 0;
+
+const FAOparams = {
+    area: countryCode,
+    item: 56,
+    element: 5532,
+    format: 'JSON'
+};
+
+const getProducerPrice = Functions.makeHttpRequest({
+    url: 'http://fenixservices.fao.org/faostat/api/v1/en/data/PP',
+    params: FAOparams,
+});
+const producerPriceData = await Promise.resolve(getProducerPrice);
+const length = producerPriceData.data.data.length - 1;
+const producerPrice = producerPriceData.data.data[length].Value;
+
+const sensorData = Functions.makeHttpRequest({
+    url: 'https://3f5c-91-197-136-110.ngrok-free.app/env',
+    headers: {"ngrok-skip-browser-warning": "true"},
+});
+const sensor = await Promise.resolve(sensorData);
+
+function sigmoid(x, scalingFactor) {
+    return 1 / (1 + Math.exp(-scalingFactor * x));
+}
+
+function transform(diff, scalingFactor) {
+    let sigmoidValue = sigmoid(diff, scalingFactor);
+    return 2 * (1 - sigmoidValue);
+}
+
+function closerValue(min, max, actual) {
+    return Math.abs(min - actual) <= Math.abs(max - actual) ? min : max;
+}
+
+async function getCreditValue() {
+    const diffs = {
+        nitrogen: closerValue(REQUIREMENT_NITROGEN_LOW, REQUIREMENT_NITROGEN_HIGH, sensor.data.nitrogen) - sensor.data.nitrogen,
+        phosphorus: closerValue(REQUIREMENT_PHOSPHORUS_LOW, REQUIREMENT_PHOSPHORUS_HIGH, sensor.data.phosphorus) - sensor.data.phosphorus,
+        potassium: closerValue(REQUIREMENT_POTASSIUM_LOW, REQUIREMENT_POTASSIUM_HIGH, sensor.data.potassium) - sensor.data.potassium,
+        water: closerValue(REQUIREMENT_WATER_LOW, REQUIREMENT_WATER_HIGH, actualWater) - actualWater,
+        temperature: closerValue(REQUIREMENT_TEMPERATURE_LOW, REQUIREMENT_TEMPERATURE_HIGH, sensor.data.temperature) - sensor.data.temperature,
+    };
+
+    const scores = {
+        nitrogen: transform(diffs.nitrogen, 0.05),
+        phosphorus: transform(diffs.phosphorus, 0.075),
+        potassium: transform(diffs.potassium, 0.075),
+        water: transform(diffs.water, 0.015),
+        temperature: transform(diffs.temperature, 0.1),
+    };
+
+    const weightedScores = WEIGHT_NITROGEN * scores.nitrogen + WEIGHT_PHOSPHORUS * scores.phosphorus + WEIGHT_POTASSIUM * scores.potassium + WEIGHT_WATER * scores.water + WEIGHT_TEMPERATURE * scores.temperature;
+    yieldValue = EXPECTED_YIELD * (area/10000) * producerPrice;
+    return weightedScores;
+}
+const weightedCreditScore = await getCreditValue();
+const finalCreditValue = weightedCreditScore * yieldValue * 0.5;
+return Functions.encodeUint256(Math.round(finalCreditValue));
+`
+
+const fetchChainlink = async () => {
+    // dotenv.config();
+    // const source = fs.readFileSync("./credit.js", "utf8").toString()
+    const provider = new ethers.providers.JsonRpcProvider(`https://polygon-mumbai.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`);
+    const signer = new ethers.Wallet(process.env.NEXT_PUBLIC_CHAINLINK_PRIVATE_KEY, provider)
+    const consumer = new ethers.Contract(process.env.NEXT_PUBLIC_CHAINLINK_CONTRACT_ADDRESS, abi, signer)
     const tx = await consumer.executeRequest(
         source,
         "0x",
-        [country, area],
+        [],
         1971,
         300000
     )
-    const txReponse = await tx.wait(3)
-    console.log(txReponse)
+    const txReponse = await tx.wait(3);
+    console.log(txReponse);
 }
+
+export default fetchChainlink;
