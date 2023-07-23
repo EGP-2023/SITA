@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "@chakra-ui/next-js";
 import {
   Box,
   Button,
@@ -191,9 +192,11 @@ function ExampleUI() {
               <Tip text={"The date repayments start"} />
             </VStack>
           </Flex>
-          <Button mt={24} variant={"solid"} bg={"black"} color={"white"} rounded={"3xl"} size={"lg"}>
-            Next
-          </Button>
+          <Link href="/fifth">
+            <Button mt={24} variant={"solid"} bg={"black"} color={"white"} rounded={"3xl"} size={"lg"}>
+              Next
+            </Button>
+          </Link>
         </div>
       </div>
     </>
