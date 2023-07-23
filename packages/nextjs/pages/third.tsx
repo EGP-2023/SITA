@@ -1,8 +1,15 @@
+import { useState } from "react";
 import { Link } from "@chakra-ui/next-js";
 import { Box, Button, Flex, Image, Text, Textarea, VStack } from "@chakra-ui/react";
+// import fs from "fs";
 import type { NextPage } from "next";
+import Map from "~~/components/Map";
+
+// console.log(fs);
 
 const ExampleUI: NextPage = () => {
+  const [area, setArea] = useState(0);
+
   return (
     <>
       <div className="min-h-full flex items-center justify-center ">
@@ -37,9 +44,13 @@ const ExampleUI: NextPage = () => {
                   Add Land Info
                 </Text>
                 <Box flex={1} />
+                <Text mx={8}>Area : {area}</Text>
                 <Button rounded={"3xl"} variant={"solid"} bg={"brand.900"} size={"lg"}>
                   Add
                 </Button>
+              </Flex>
+              <Flex alignItems={"center"} className="text-justify" w={"740px"} >
+                <Map setArea={setArea} />
               </Flex>
 
               <Flex alignItems={"center"} className="text-justify bg-teal-50 rounded-3xl px-2" w={"740px"}>
