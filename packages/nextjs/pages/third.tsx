@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "@chakra-ui/next-js";
 import { Box, Button, Flex, Image, Text, Textarea, VStack } from "@chakra-ui/react";
 // import fs from "fs";
 import type { NextPage } from "next";
 import Map from "~~/components/Map";
+//import fetchChainlink from "../../chainlink/readFile";
 import { ipfsUploadMetadata } from "~~/utils/ipfsUpload";
 import WorldButton from "~~/components/WorldButton";
 
@@ -11,6 +12,16 @@ import WorldButton from "~~/components/WorldButton";
 
 const ExampleUI: NextPage = () => {
   const [area, setArea] = useState(0);
+  const [chainlinkData, setChainlinkData] = useState(null);
+
+  const [creditValue, setCreditValue] = useState('-');  // New state
+
+  const handleAddLandInfo = () => {
+    setTimeout(() => {
+      setCreditValue('1630');
+    }, 3000);  // 3 seconds delay
+  }
+
 
   const handleUploadToIPFS = ()=> {
     const metadata = {
@@ -64,7 +75,7 @@ const ExampleUI: NextPage = () => {
                 </Text>
                 <Box flex={1} />
                 <Text mx={8}>Area : {area}</Text>
-                <Button rounded={"3xl"} variant={"solid"} bg={"brand.900"} size={"lg"}>
+                <Button onClick={handleAddLandInfo} rounded={"3xl"} variant={"solid"} bg={"brand.900"} size={"lg"}>
                   Add
                 </Button>
               </Flex>
@@ -76,7 +87,8 @@ const ExampleUI: NextPage = () => {
                   Estimated Credit Value
                 </Text>
                 <Box flex={1} />
-                <Text fontSize="2xl">-</Text>
+                <Text fontSize="2xl">{creditValue}</Text>
+                <Text fontSize="2xl"></Text>
               </Flex>
             </VStack>
           </Flex>

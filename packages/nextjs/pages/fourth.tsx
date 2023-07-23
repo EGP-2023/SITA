@@ -41,17 +41,18 @@ export function MyDayPicker({ value, setValue }) {
 
 function ExampleUI() {
   const [rateRange, setRateRange] = useState([`3%`, `6%`]);
-  const [repaymentPeriod, setRepaymentPeriod] = useState(`12m`);
+  const [repaymentPeriod, setRepaymentPeriod] = useState(12);
 
   const [repaymentStartDate, setRepaymentStartDate] = useState(new Date());
   const [disbursementDate, setDisbursementDate] = useState(new Date());
+  const [loanPrincipal, setLoanPrincipal] = useState(1630);
 
   function handleRateRangeChange(val: number[]) {
     setRateRange([`${val[0]}%`, `${val[1]}%`]);
   }
 
   function handleRepaymentPeriodChange(val: number) {
-    setRepaymentPeriod(`${val}m`);
+    setRepaymentPeriod(val);
   }
   return (
     <>
@@ -75,7 +76,8 @@ function ExampleUI() {
                   bg={"gray.100"}
                   size={"lg"}
                   variant="filled"
-                  placeholder="0.00"
+                  placeholder="0.0"
+                  value={loanPrincipal}
                 />
               </Flex>
               <Tip text={"Max amount you’re recommended for is $5,000"} />
@@ -142,7 +144,7 @@ function ExampleUI() {
                   bg={"gray.100"}
                   size={"lg"}
                   variant="filled"
-                  placeholder="12m"
+                  placeholder="12"
                   value={repaymentPeriod}
                 />
               </Flex>
@@ -166,7 +168,7 @@ function ExampleUI() {
               <Flex alignItems={"center"} className="text-justify bg-teal-50 rounded-3xl px-2 my-6" w={"740px"}>
                 <Text fontSize="2xl">Est Monthly Payment</Text>
                 <Box flex={1} />
-                <Text fontSize="2xl">-</Text>
+                <Text fontSize="2xl">{Math.round(loanPrincipal / repaymentPeriod)}</Text>
               </Flex>
 
               <Flex alignItems={"center"} className="text-justify" w={"740px"}>
