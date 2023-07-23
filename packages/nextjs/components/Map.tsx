@@ -5,11 +5,29 @@ import * as turf from "@turf/turf";
 import mapboxgl from "mapbox-gl";
 import type { NextPage } from "next";
 
+// import fs from "fs";
+
+// console.log(fs)
+
 // console.log("turf", turf);
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
-const Sita: NextPage = () => {
+// const main = async () => {
+//   dotenv.config();
+//   process.env.NEXT_PUBLIC
+//   const source = fs.readFileSync("./credit.js", "utf8").toString();
+//   const provider = new ethers.providers.JsonRpcProvider(
+//     `https://polygon-mumbai.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
+//   );
+//   const signer = new ethers.Wallet(process.env.PRIVATE_KEY, provider);
+//   const consumer = new ethers.Contract("0x45De681cdacbC9838656613Ba3c549273b354ac0", abi, signer);
+//   const tx = await consumer.executeRequest(source, "0x", [country, area], 1971, 300000);
+//   const txReponse = await tx.wait(3);
+//   console.log(txReponse);
+// };
+
+const Sita: NextPage = ({ setArea }) => {
   const map = useRef<mapboxgl.Map | null>(null);
   const mapContainer = useRef<HTMLElement | null>(null);
   const [lng, setLng] = useState(-70.9);
@@ -48,6 +66,7 @@ const Sita: NextPage = () => {
         // Restrict the area to 2 decimal points.
         const rounded_area = Math.round(area * 100) / 100;
         console.log(rounded_area);
+        setArea(rounded_area);
         // answer.innerHTML = `<p><strong>${rounded_area}</strong></p><p>square meters</p>`;
       } else {
         // answer.innerHTML = "";
@@ -70,6 +89,7 @@ const Sita: NextPage = () => {
       </Flex> */}
       <div
         style={{
+          width: "100%",
           height: "400px",
         }}
         className="map-container"
