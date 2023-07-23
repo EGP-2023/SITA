@@ -4,6 +4,7 @@ import { Box, Button, Flex, Image, Text, Textarea, VStack } from "@chakra-ui/rea
 // import fs from "fs";
 import type { NextPage } from "next";
 import Map from "~~/components/Map";
+import WorldButton from "~~/components/WorldButton";
 
 // console.log(fs);
 
@@ -41,6 +42,13 @@ const ExampleUI: NextPage = () => {
               </Flex>
               <Flex alignItems={"center"} className="text-justify" w={"740px"}>
                 <Text className="font-bold" fontSize="2xl">
+                  Verify personal identity
+                </Text>
+                <Box flex={1} />
+                <WorldButton />
+              </Flex>
+              <Flex alignItems={"center"} className="text-justify" w={"740px"}>
+                <Text className="font-bold" fontSize="2xl">
                   Add Land Info
                 </Text>
                 <Box flex={1} />
@@ -49,7 +57,7 @@ const ExampleUI: NextPage = () => {
                   Add
                 </Button>
               </Flex>
-              <Flex alignItems={"center"} className="text-justify" w={"740px"} >
+              <Flex alignItems={"center"} className="text-justify" w={"740px"}>
                 <Map setArea={setArea} />
               </Flex>
 
