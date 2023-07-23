@@ -5,6 +5,7 @@ import { Box, Button, Flex, Image, Text, Textarea, VStack } from "@chakra-ui/rea
 import type { NextPage } from "next";
 import Map from "~~/components/Map";
 import { ipfsUploadMetadata } from "~~/utils/ipfsUpload";
+import WorldButton from "~~/components/WorldButton";
 
 // console.log(fs);
 
@@ -52,6 +53,13 @@ const ExampleUI: NextPage = () => {
               </Flex>
               <Flex alignItems={"center"} className="text-justify" w={"740px"}>
                 <Text className="font-bold" fontSize="2xl">
+                  Verify personal identity
+                </Text>
+                <Box flex={1} />
+                <WorldButton />
+              </Flex>
+              <Flex alignItems={"center"} className="text-justify" w={"740px"}>
+                <Text className="font-bold" fontSize="2xl">
                   Add Land Info
                 </Text>
                 <Box flex={1} />
@@ -60,10 +68,9 @@ const ExampleUI: NextPage = () => {
                   Add
                 </Button>
               </Flex>
-              <Flex alignItems={"center"} className="text-justify" w={"740px"} >
-                <Map setArea={setArea} handleIPFS={}/>
+              <Flex alignItems={"center"} className="text-justify" w={"740px"}>
+                <Map setArea={setArea} />
               </Flex>
-
               <Flex alignItems={"center"} className="text-justify bg-teal-50 rounded-3xl px-2" w={"740px"}>
                 <Text className="font-bold" fontSize="2xl">
                   Estimated Credit Value
