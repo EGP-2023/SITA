@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
 import type { NextPage } from "next";
+import { Link } from "@chakra-ui/next-js";
 
 const ExampleUI: NextPage = () => {
   const [borrowSelected, setBorrowSelected] = useState(false);
@@ -69,9 +70,11 @@ const ExampleUI: NextPage = () => {
               <Text fontSize="sm">If you sign up as a borrower you will be able to create loan requests.</Text>
             </Flex>
           </Flex>
-          <Button variant={"solid"} bg={"black"} color={"white"} rounded={"3xl"} size={"lg"} className="m-8">
-            Next
-          </Button>
+          <Link href="/third">
+            <Button variant={"solid"} bg={"black"} color={"white"} rounded={"3xl"} size={"lg"} className="m-8">
+              Next
+            </Button>
+          </Link>
         </div>
       </div>
     </>
