@@ -12,7 +12,13 @@ const ExampleUI: NextPage = () => {
   const [area, setArea] = useState(0);
 
   const handleUploadToIPFS = ()=> {
-    ipfsUploadMetadata(area);
+    const metadata = {
+      area,
+      lgt: -100,
+      lat: 10,
+      countryCode: 'IND',
+    };
+    ipfsUploadMetadata(metadata);
   }
 
   return (
@@ -55,7 +61,7 @@ const ExampleUI: NextPage = () => {
                 </Button>
               </Flex>
               <Flex alignItems={"center"} className="text-justify" w={"740px"} >
-                <Map setArea={setArea} />
+                <Map setArea={setArea} handleIPFS={}/>
               </Flex>
 
               <Flex alignItems={"center"} className="text-justify bg-teal-50 rounded-3xl px-2" w={"740px"}>
