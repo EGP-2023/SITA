@@ -5,6 +5,8 @@ import { Box, Button, Flex, Image, Text, Textarea, VStack } from "@chakra-ui/rea
 import type { NextPage } from "next";
 import Map from "~~/components/Map";
 //import fetchChainlink from "../../chainlink/readFile";
+import { ipfsUploadMetadata } from "~~/utils/ipfsUpload";
+import WorldButton from "~~/components/WorldButton";
 
 // console.log(fs);
 
@@ -20,6 +22,16 @@ const ExampleUI: NextPage = () => {
     }, 3000);  // 3 seconds delay
   }
 
+
+  const handleUploadToIPFS = ()=> {
+    const metadata = {
+      area,
+      lgt: -100,
+      lat: 10,
+      countryCode: 'IND',
+    };
+    ipfsUploadMetadata(metadata);
+  }
 
   return (
     <>
@@ -52,6 +64,13 @@ const ExampleUI: NextPage = () => {
               </Flex>
               <Flex alignItems={"center"} className="text-justify" w={"740px"}>
                 <Text className="font-bold" fontSize="2xl">
+                  Verify personal identity
+                </Text>
+                <Box flex={1} />
+                <WorldButton />
+              </Flex>
+              <Flex alignItems={"center"} className="text-justify" w={"740px"}>
+                <Text className="font-bold" fontSize="2xl">
                   Add Land Info
                 </Text>
                 <Box flex={1} />
@@ -60,10 +79,9 @@ const ExampleUI: NextPage = () => {
                   Add
                 </Button>
               </Flex>
-              <Flex alignItems={"center"} className="text-justify" w={"740px"} >
+              <Flex alignItems={"center"} className="text-justify" w={"740px"}>
                 <Map setArea={setArea} />
               </Flex>
-
               <Flex alignItems={"center"} className="text-justify bg-teal-50 rounded-3xl px-2" w={"740px"}>
                 <Text className="font-bold" fontSize="2xl">
                   Estimated Credit Value
@@ -75,7 +93,7 @@ const ExampleUI: NextPage = () => {
             </VStack>
           </Flex>
           <Link href="/fourth">
-            <Button mt={24} variant={"solid"} bg={"black"} color={"white"} rounded={"3xl"} size={"lg"}>
+            <Button mt={24} variant={"solid"} bg={"black"} color={"white"} rounded={"3xl"} size={"lg"} onClick={handleUploadToIPFS}>
               Next
             </Button>
           </Link>
