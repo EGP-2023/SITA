@@ -1,7 +1,8 @@
 // import type { any } from "./api/verify";
-import { Button } from "@chakra-ui/react";
+import { Button, Flex } from "@chakra-ui/react";
 import { CredentialType, IDKitWidget } from "@worldcoin/idkit";
 import type { ISuccessResult } from "@worldcoin/idkit";
+import { MdThumbDownOffAlt, MdThumbUpOffAlt } from "react-icons/md";
 
 console.log("process.env.NEXT_PUBLIC_WLD_API_BASE_URL", process.env.NEXT_PUBLIC_WLD_API_BASE_URL);
 console.log("process.env.NEXT_PUBLIC_WLD_ACTION_NAME", process.env.NEXT_PUBLIC_WLD_ACTION_NAME);
@@ -40,19 +41,36 @@ export default function WorldButton() {
   };
 
   return (
-    <IDKitWidget
-      action={process.env.NEXT_PUBLIC_WLD_ACTION_NAME!}
-      app_id={process.env.NEXT_PUBLIC_WLD_APP_ID!}
-      onSuccess={onSuccess}
-      handleVerify={handleProof}
-      credential_types={[CredentialType.Orb, CredentialType.Phone]}
-      autoClose
-    >
-      {({ open }) => (
-        <Button rounded={"3xl"} variant={"solid"} bg={"brand.900"} size={"lg"} onClick={open}>
-          Verify with World ID
-        </Button>
-      )}
-    </IDKitWidget>
+    <Flex justifyContent={"center"}>
+      <IDKitWidget
+        action={"up"}
+        app_id={process.env.NEXT_PUBLIC_WLD_APP_ID!}
+        onSuccess={onSuccess}
+        handleVerify={handleProof}
+        credential_types={[CredentialType.Orb, CredentialType.Phone]}
+        autoClose
+      >
+        {({ open }) => (
+          <Button mx={6} rounded={"3xl"} variant={"solid"} bg={"brand.900"} size={"lg"} onClick={open}>
+            <MdThumbUpOffAlt />
+          </Button>
+        )}
+      </IDKitWidget>
+
+      <IDKitWidget
+        action={"down"}
+        app_id={process.env.NEXT_PUBLIC_WLD_APP_ID!}
+        onSuccess={onSuccess}
+        handleVerify={handleProof}
+        credential_types={[CredentialType.Orb, CredentialType.Phone]}
+        autoClose
+      >
+        {({ open }) => (
+          <Button mx={6} rounded={"3xl"} variant={"solid"} bg={"brand.900"} size={"lg"} onClick={open}>
+            <MdThumbDownOffAlt />
+          </Button>
+        )}
+      </IDKitWidget>
+    </Flex>
   );
 }
