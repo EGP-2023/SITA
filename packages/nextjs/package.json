@@ -31,6 +31,8 @@
     "@turf/turf": "^6.5.0",
     "@uniswap/sdk-core": "^4.0.1",
     "@uniswap/v2-sdk": "^3.0.1",
+    "@web3modal/ethereum": "^2.7.0",
+    "@web3modal/react": "^2.7.0",
     "@worldcoin/idkit": "^0.5.1",
     "daisyui": "^2.31.0",
     "framer-motion": "^10.13.0",
@@ -46,8 +48,8 @@
     "react-icons": "^4.10.1",
     "use-debounce": "^8.0.4",
     "usehooks-ts": "^2.7.2",
-    "viem": "1.2.1",
-    "wagmi": "1.3.2",
+    "viem": "^1.4.0",
+    "wagmi": "^1.3.9",
     "zustand": "^4.3.9"
   },
   "devDependencies": {
