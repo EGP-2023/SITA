@@ -161,20 +161,31 @@ function generateJSONDataFarmer(
     uint256 tokenId,
     FarmerLoanDetail memory _farmerLoanDetail
 ) internal pure returns (string memory) {
+    string memory farmerDataPart1 = generateFarmerDataPart1(_farmerLoanDetail);
+    string memory farmerDataPart2 = generateFarmerDataPart2(_farmerLoanDetail);
+
+    return string(
+        abi.encodePacked("\"farmerLoanDetail\": {", farmerDataPart1, "}", ",", farmerDataPart2, "}")
+    );
+}
+
+function generateFarmerDataPart1(FarmerLoanDetail memory _farmerLoanDetail) internal pure returns (string memory) {
     return string(
         abi.encodePacked(
-            "\"farmerLoanDetail\": {",
             "\"id\":", _farmerLoanDetail.id.toString(), ",",
             "\"principleAmount\":", _farmerLoanDetail.principleAmount.toString(), ",",
-            "\"minInterest\":", _farmerLoanDetail.minInterest.toString(), ",",
-            "\"maxInterest\":", _farmerLoanDetail.maxInterest.toString(), ",",
-            "\"term\":", _farmerLoanDetail.term.toString(), ",",
+            "\"term\":", _farmerLoanDetail.term.toString()
+        )
+    );
+}
+
+function generateFarmerDataPart2(FarmerLoanDetail memory _farmerLoanDetail) internal pure returns (string memory) {
+    return string(
+        abi.encodePacked(
             "\"creditValue\":", _farmerLoanDetail.creditValue.toString(), ",",
             "\"disbursmentDate\":", _farmerLoanDetail.disbursmentDate.toString(), ",",
             "\"startDate\":", _farmerLoanDetail.startDate.toString(), ",",
-            "\"farmerRegistrationURI\":\"", _farmerLoanDetail.farmerRegistrationURI, "\"",
-            "}",
-            "}"
+            "\"farmerRegistrationURI\":", _farmerLoanDetail.farmerRegistrationURI, "\""
         )
     );
 }
