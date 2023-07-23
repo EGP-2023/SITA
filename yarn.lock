@@ -4313,7 +4313,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.39.0
     "@uniswap/sdk-core": ^4.0.1
     "@uniswap/v2-sdk": ^3.0.1
-    "@walletconnect/web3-provider": ^1.7.8
+    "@walletconnect/web3-provider": ^1.8.0
     "@worldcoin/idkit": ^0.5.1
     autoprefixer: ^10.4.12
     daisyui: ^2.31.0
@@ -4326,6 +4326,7 @@ __metadata:
     mapbox-gl: ^2.15.0
     next: ^13.1.6
     nextjs-progressbar: ^0.0.16
+    nft.storage: ^7.1.1
     postcss: ^8.4.16
     prettier: ^2.8.4
     react: ^18.2.0
@@ -4343,6 +4344,7 @@ __metadata:
     vercel: ^28.15.1
     viem: 1.2.1
     wagmi: 1.3.2
+    web3modal: ^1.9.12
     zustand: ^4.3.9
   languageName: unknown
   linkType: soft
@@ -8118,7 +8120,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@walletconnect/web3-provider@npm:^1.7.8, @walletconnect/web3-provider@npm:^1.8.0":
+"@walletconnect/web3-provider@npm:^1.8.0":
   version: 1.8.0
   resolution: "@walletconnect/web3-provider@npm:1.8.0"
   dependencies:
