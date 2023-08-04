@@ -78,6 +78,8 @@ const Test: NextPage = () => {
         bundler: bundler,
         paymaster: paymaster,
       };
+
+      
       let biconomySmartAccount = new BiconomySmartAccount(biconomySmartAccountConfig);
       biconomySmartAccount = await biconomySmartAccount.init();
       setAddress(await biconomySmartAccount.getSmartAccountAddress());
@@ -109,12 +111,9 @@ const Test: NextPage = () => {
 
   return (
     <>
-      <MetaHeader
-        title="Debug Contracts | Scaffold-ETH 2"
-        description="Debug your deployed 🏗 Scaffold-ETH 2 contracts in an easy way"
-      />
+
       <div className="flex flex-col gap-y-6 lg:gap-y-8 py-8 lg:py-12 justify-center items-center">
-        <h1>Test</h1>
+
 
         {!smartAccount && <button onClick={login}>Connect to Web3</button>}
         {smartAccount && <button onClick={logout}>Logout</button>}

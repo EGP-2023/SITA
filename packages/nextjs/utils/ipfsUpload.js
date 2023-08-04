@@ -18,10 +18,6 @@ export async function ipfsUploadImage(files) {
 
 
 export async function ipfsUploadMetadata(metadata) {
-
-  console.log(metadata);
-
-
   const blob = new Blob([JSON.stringify(metadata)], { type: 'text/json' });
   const cid = await client.storeBlob(blob);
   console.log(cid);

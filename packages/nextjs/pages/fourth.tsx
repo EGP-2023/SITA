@@ -28,6 +28,9 @@ import { format } from "date-fns";
 import type { NextPage } from "next";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
+import { useSitaStore } from "~~/utils/sitaStore";
+import { EtherscanProvider } from "@ethersproject/providers";
+import {ethers} from "ethers";
 
 export function MyDayPicker({ value, setValue }) {
   //   const [selected, setSelected] = useState<Date>();
@@ -39,6 +42,8 @@ export function MyDayPicker({ value, setValue }) {
   return <DayPicker mode="single" selected={value} onSelect={setValue} footer={footer} />;
 }
 
+
+
 function ExampleUI() {
   const [rateRange, setRateRange] = useState([`3%`, `6%`]);
   const [repaymentPeriod, setRepaymentPeriod] = useState(`12m`);
@@ -46,8 +51,19 @@ function ExampleUI() {
   const [repaymentStartDate, setRepaymentStartDate] = useState(new Date());
   const [disbursementDate, setDisbursementDate] = useState(new Date());
 
+  const biconomySmartAccount = useSitaStore(state => state.biconomySmartAccount);
+
+
+  
   function handleRateRangeChange(val: number[]) {
     setRateRange([`${val[0]}%`, `${val[1]}%`]);
+  }
+
+  const { data: sitaLoanContract } = useScaffoldContract({ contractName: "SitaLoan" });
+  const submitCreatLoan = async ()=>{
+          const loanContract = await ethers.Contract({"0xec5181a1313a71C247228043602Cf3C92F12B1A0",
+          biconomySmartAccount.signer(), sitaLoanContract.abi()});
+  
   }
 
   function handleRepaymentPeriodChange(val: number) {
@@ -193,7 +209,7 @@ function ExampleUI() {
             </VStack>
           </Flex>
           <Link href="/fifth">
-            <Button mt={24} variant={"solid"} bg={"black"} color={"white"} rounded={"3xl"} size={"lg"}>
+            <Button mt={24} variant={"solid"} bg={"black"} color={"white"} rounded={"3xl"} size={"lg"} onClick={submitCreatLoan}>
               Next
             </Button>
           </Link>
