@@ -12,7 +12,7 @@ const ExampleUI: NextPage = () => {
 
           <Link href="/second">
             <Button variant={"solid"} bg={"black"} color={"white"} rounded={"3xl"} size={"lg"}>
-              Sign Up
+              connect
             </Button>
           </Link>
 
