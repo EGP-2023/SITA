@@ -29,7 +29,6 @@ function WalletConnectButton(props) {
   const fetchContractDetails = async () => {
     if (contract != null && account != "") {
       console.log("Fetching contract details....");
-
     }
   };
 
@@ -51,8 +50,6 @@ function WalletConnectButton(props) {
 
         const contractWithWalletConnection = await createContractWithSignerRektguy(provider);
 
-        const contractENS = await createContractWithSignerENS(provider);
-        setContractENS(contractENS);
         setContract(contractWithWalletConnection);
         fetchContractDetails();
 
@@ -73,7 +70,7 @@ function WalletConnectButton(props) {
       }
     }
     fetchAccount();
-  }, [account, provider, setRendered]);
+  }, [account, fetchContractDetails, provider, setAccount, setRendered]);
 
   return (
     <button

@@ -1,37 +1,35 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "@chakra-ui/next-js";
-import { Box, Button, Flex, Image, Text, Textarea, VStack } from "@chakra-ui/react";
+import { Box, Button, Flex, Text, Textarea, VStack } from "@chakra-ui/react";
 // import fs from "fs";
 import type { NextPage } from "next";
 import Map from "~~/components/Map";
+import WorldButton from "~~/components/WorldButton";
 //import fetchChainlink from "../../chainlink/readFile";
 import { ipfsUploadMetadata } from "~~/utils/ipfsUpload";
-import WorldButton from "~~/components/WorldButton";
 
 // console.log(fs);
 
 const ExampleUI: NextPage = () => {
   const [area, setArea] = useState(0);
-  const [chainlinkData, setChainlinkData] = useState(null);
 
-  const [creditValue, setCreditValue] = useState('-');  // New state
+  const [creditValue, setCreditValue] = useState("-"); // New state
 
   const handleAddLandInfo = () => {
     setTimeout(() => {
-      setCreditValue('1630');
-    }, 3000);  // 3 seconds delay
-  }
+      setCreditValue("1630");
+    }, 3000); // 3 seconds delay
+  };
 
-
-  const handleUploadToIPFS = ()=> {
+  const handleUploadToIPFS = () => {
     const metadata = {
       area,
       lgt: -100,
       lat: 10,
-      countryCode: 'IND',
+      countryCode: "IND",
     };
     ipfsUploadMetadata(metadata);
-  }
+  };
 
   return (
     <>
@@ -93,7 +91,15 @@ const ExampleUI: NextPage = () => {
             </VStack>
           </Flex>
           <Link href="/fourth">
-            <Button mt={24} variant={"solid"} bg={"black"} color={"white"} rounded={"3xl"} size={"lg"} onClick={handleUploadToIPFS}>
+            <Button
+              mt={24}
+              variant={"solid"}
+              bg={"black"}
+              color={"white"}
+              rounded={"3xl"}
+              size={"lg"}
+              onClick={handleUploadToIPFS}
+            >
               Next
             </Button>
           </Link>

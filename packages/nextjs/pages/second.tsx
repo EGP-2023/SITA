@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
-import type { NextPage } from "next";
 import { Link } from "@chakra-ui/next-js";
+import { Button, Flex, Image, Text } from "@chakra-ui/react";
+import type { NextPage } from "next";
 
 const ExampleUI: NextPage = () => {
   const [borrowSelected, setBorrowSelected] = useState(false);
