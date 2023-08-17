@@ -44,7 +44,7 @@ export default function WorldButton() {
     <Flex justifyContent={"center"}>
       <IDKitWidget
         action={"up"}
-        app_id={process.env.NEXT_PUBLIC_WLD_APP_ID!}
+        app_id={process.env.NEXT_PUBLIC_WLD_APP_ID || ""}
         onSuccess={onSuccess}
         handleVerify={handleProof}
         credential_types={[CredentialType.Orb, CredentialType.Phone]}
