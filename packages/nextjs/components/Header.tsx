@@ -13,11 +13,10 @@ import {
   MenuItem,
   MenuList,
   Stack,
-  useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
 // import { HamburgerIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
-import { MdAdd, MdClose, MdHamburger } from "react-icons/md";
+import { MdClose } from "react-icons/md";
 import { useSitaStore } from "~~/utils/sitaStore";
 
 const Links = ["Lend", "Borrow", "MyDashboard", "About"];
@@ -44,7 +43,7 @@ export default function Header() {
 
   return (
     <>
-      <Box bg={"white"} px={4} >
+      <Box bg={"white"} px={4}>
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <IconButton
             size={"md"}

@@ -1,4 +1,4 @@
-import { Image, Text } from "@chakra-ui/react";
+import { Image } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import UpDown from "~~/components/UpDown";
 

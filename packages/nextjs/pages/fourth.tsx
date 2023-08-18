@@ -25,7 +25,6 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { format } from "date-fns";
-import type { NextPage } from "next";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 
@@ -45,7 +44,8 @@ function ExampleUI() {
 
   const [repaymentStartDate, setRepaymentStartDate] = useState(new Date());
   const [disbursementDate, setDisbursementDate] = useState(new Date());
-  const [loanPrincipal, setLoanPrincipal] = useState(1630);
+  // const [loanPrincipal, setLoanPrincipal] = useState(1630);
+  const loanPrincipal = 1630;
 
   function handleRateRangeChange(val: number[]) {
     setRateRange([`${val[0]}%`, `${val[1]}%`]);
@@ -116,6 +116,7 @@ function ExampleUI() {
                 <RangeSlider
                   min={0}
                   max={12}
+                  // eslint-disable-next-line jsx-a11y/aria-proptypes
                   aria-label={["min", "max"]}
                   defaultValue={[3, 6]}
                   onChangeEnd={handleRateRangeChange}

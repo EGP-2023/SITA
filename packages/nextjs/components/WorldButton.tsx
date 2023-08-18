@@ -41,8 +41,8 @@ export default function WorldButton() {
 
   return (
     <IDKitWidget
-      action={process.env.NEXT_PUBLIC_WLD_ACTION_NAME!}
-      app_id={process.env.NEXT_PUBLIC_WLD_APP_ID!}
+      action={process.env.NEXT_PUBLIC_WLD_ACTION_NAME || ""}
+      app_id={process.env.NEXT_PUBLIC_WLD_APP_ID || ""}
       onSuccess={onSuccess}
       handleVerify={handleProof}
       credential_types={[CredentialType.Orb, CredentialType.Phone]}

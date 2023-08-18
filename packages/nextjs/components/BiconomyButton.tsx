@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 // import "@Biconomy/web3-auth/dist/src/style.css";
 import { BiconomySmartAccount, BiconomySmartAccountConfig, DEFAULT_ENTRYPOINT_ADDRESS } from "@biconomy/account";
 import { Bundler, IBundler } from "@biconomy/bundler";
@@ -30,6 +30,33 @@ const Test: NextPage = () => {
 
   const setBiconomySmartAccount = useSitaStore(state => state.setBiconomySmartAccount);
 
+  const setupSmartAccount = useCallback(async () => {
+    if (!sdkRef?.current?.provider) return;
+    sdkRef.current.hideWallet();
+    setLoading(true);
+    console.log(`setting up smart account... Loading: ${loading}`);
+    const web3Provider = new ethers.providers.Web3Provider(sdkRef.current.provider);
+    setProvider(web3Provider);
+
+    try {
+      const biconomySmartAccountConfig: BiconomySmartAccountConfig = {
+        signer: web3Provider.getSigner(),
+        chainId: ChainId.POLYGON_MUMBAI,
+        bundler: bundler,
+        paymaster: paymaster,
+      };
+      let biconomySmartAccount = new BiconomySmartAccount(biconomySmartAccountConfig);
+      biconomySmartAccount = await biconomySmartAccount.init();
+      setAddress(await biconomySmartAccount.getSmartAccountAddress());
+      setSmartAccount(biconomySmartAccount);
+      setBiconomySmartAccount(biconomySmartAccount);
+      console.log(biconomySmartAccount);
+      setLoading(false);
+    } catch (err) {
+      console.log("error setting up smart account... ", err);
+    }
+  }, [loading, setBiconomySmartAccount]);
+
   useEffect(() => {
     let configureLogin: any;
     if (interval) {
@@ -40,7 +67,7 @@ const Test: NextPage = () => {
         }
       }, 1000);
     }
-  }, [interval]);
+  }, [interval, setupSmartAccount]);
 
   async function login() {
     if (!sdkRef.current) {
@@ -61,32 +88,6 @@ const Test: NextPage = () => {
       enableInterval(true);
     } else {
       setupSmartAccount();
-    }
-  }
-
-  async function setupSmartAccount() {
-    if (!sdkRef?.current?.provider) return;
-    sdkRef.current.hideWallet();
-    setLoading(true);
-    const web3Provider = new ethers.providers.Web3Provider(sdkRef.current.provider);
-    setProvider(web3Provider);
-
-    try {
-      const biconomySmartAccountConfig: BiconomySmartAccountConfig = {
-        signer: web3Provider.getSigner(),
-        chainId: ChainId.POLYGON_MUMBAI,
-        bundler: bundler,
-        paymaster: paymaster,
-      };
-      let biconomySmartAccount = new BiconomySmartAccount(biconomySmartAccountConfig);
-      biconomySmartAccount = await biconomySmartAccount.init();
-      setAddress(await biconomySmartAccount.getSmartAccountAddress());
-      setSmartAccount(biconomySmartAccount);
-      setBiconomySmartAccount(biconomySmartAccount);
-      console.log(biconomySmartAccount);
-      setLoading(false);
-    } catch (err) {
-      console.log("error setting up smart account... ", err);
     }
   }
 

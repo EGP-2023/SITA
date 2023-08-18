@@ -9,8 +9,6 @@ console.log("process.env.NEXT_PUBLIC_WLD_ACTION_NAME", process.env.NEXT_PUBLIC_W
 console.log("process.env.NEXT_PUBLIC_WLD_APP_ID", process.env.NEXT_PUBLIC_WLD_APP_ID);
 
 export default function WorldButton() {
-  let value = "up";
-
   const onSuccess = (result: ISuccessResult) => {
     // This is where you should perform frontend actions once a user has been verified, such as redirecting to a new page
     window.alert("Successfully verified with World ID! Your nullifier hash is: " + result.nullifier_hash);
@@ -46,7 +44,7 @@ export default function WorldButton() {
     <Flex justifyContent={"center"}>
       <IDKitWidget
         action={"up"}
-        app_id={process.env.NEXT_PUBLIC_WLD_APP_ID!}
+        app_id={process.env.NEXT_PUBLIC_WLD_APP_ID || ""}
         onSuccess={onSuccess}
         handleVerify={handleProof}
         credential_types={[CredentialType.Orb, CredentialType.Phone]}
