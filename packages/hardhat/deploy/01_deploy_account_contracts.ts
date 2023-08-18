@@ -28,14 +28,14 @@ const deployAccountContracts: DeployFunction = async function (hre: HardhatRunti
 
   await deploy("SitaLoan", {
     from: deployer,
-    args: ["SitaLoan", "STLN", "Initial URI"], 
+    args: ["SitaLoan", "STLN", "Initial URI"],
     log: true,
     autoMine: true,
   });
 
   await deploy("USDC", {
     from: deployer,
-    args: [100_000_000_000], 
+    args: [100_000_000_000],
     log: true,
     autoMine: true,
   });
@@ -43,4 +43,4 @@ const deployAccountContracts: DeployFunction = async function (hre: HardhatRunti
 
 export default deployAccountContracts;
 
-deployAccountContracts.tags = ["SitaAccount","SitaAccountRegistry","DebtToken", "SitaLoan","USDC"];
+deployAccountContracts.tags = ["SitaAccount", "SitaAccountRegistry", "DebtToken", "SitaLoan", "USDC"];
