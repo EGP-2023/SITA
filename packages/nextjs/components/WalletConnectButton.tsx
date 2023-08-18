@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import useWeb3Modal from "../hooks/scaffold-eth/useWeb3Modal";
 
 // const providerOptions = {
@@ -26,12 +26,11 @@ function WalletConnectButton(props) {
   const account = props.account;
   const contract = props.contract;
 
-  const fetchContractDetails = async () => {
+  const fetchContractDetails = useCallback(async () => {
     if (contract != null && account != "") {
       console.log("Fetching contract details....");
-
     }
-  };
+  }, [account, contract]);
 
   useEffect(() => {
     async function fetchAccount() {
@@ -51,8 +50,6 @@ function WalletConnectButton(props) {
 
         const contractWithWalletConnection = await createContractWithSignerRektguy(provider);
 
-        const contractENS = await createContractWithSignerENS(provider);
-        setContractENS(contractENS);
         setContract(contractWithWalletConnection);
         fetchContractDetails();
 
@@ -73,7 +70,7 @@ function WalletConnectButton(props) {
       }
     }
     fetchAccount();
-  }, [account, provider, setRendered]);
+  }, [account, fetchContractDetails, provider, setAccount, setRendered]);
 
   return (
     <button

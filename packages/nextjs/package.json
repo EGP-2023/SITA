@@ -8,6 +8,7 @@
     "build": "next build",
     "serve": "next start",
     "lint": "next lint",
+    "elint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "format": "prettier --write . '!(node_modules|.next|contracts)/**/*'",
     "check-types": "tsc --noEmit --incremental",
     "vercel": "vercel",

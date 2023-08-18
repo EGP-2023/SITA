@@ -1,6 +1,5 @@
 import { useState } from "react";
 import {
-  Avatar,
   Box,
   Button,
   Center,
@@ -46,6 +45,7 @@ const Sita: NextPage = () => {
               src={
                 "https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
               }
+              alt={"splash"}
               // objectFit={"cover"}
             />
             <Flex justify={"center"}></Flex>
@@ -109,15 +109,15 @@ export default Sita;
 function SliderMarkExample() {
   const [sliderValue, setSliderValue] = useState(28);
 
-  const labelStyles = {
-    mt: "2",
-    ml: "-2.5",
-    fontSize: "sm",
-  };
+  // const labelStyles = {
+  //   mt: "2",
+  //   ml: "-2.5",
+  //   fontSize: "sm",
+  // };
 
   return (
     <Box pt={6} pb={2} mt={2}>
-      <Slider aria-label="slider-ex-6" value={29} bg={"brand.900"}>
+      <Slider aria-label="slider-ex-6" value={29} bg={"brand.900"} onChange={value => setSliderValue(value)}>
         <SliderMark value={sliderValue} textAlign="center" bg="brand.800" color="white" mt="-10" ml="-5" w="12">
           {sliderValue}%
         </SliderMark>
