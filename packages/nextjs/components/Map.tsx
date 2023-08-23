@@ -11,7 +11,7 @@ import type { NextPage } from "next";
 
 // console.log("turf", turf);
 
-mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
+mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || "";
 
 // const main = async () => {
 //   dotenv.config();
@@ -27,9 +27,13 @@ mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 //   console.log(txReponse);
 // };
 
-const Sita: NextPage = ({ setArea }) => {
+type SitaProps = {
+  setArea: (area: number) => void;
+};
+
+const Sita: NextPage<SitaProps> = ({ setArea }) => {
   const map = useRef<mapboxgl.Map | null>(null);
-  const mapContainer = useRef<HTMLElement | null>(null);
+  const mapContainer = useRef<HTMLDivElement | null>(null);
   // const [lng, setLng] = useState(-70.9);
   // const [lat, setLat] = useState(42.35);
   // const [zoom, setZoom] = useState(9);
@@ -41,7 +45,7 @@ const Sita: NextPage = ({ setArea }) => {
   useEffect(() => {
     if (map.current) return; // initialize map only once
     map.current = new mapboxgl.Map({
-      container: mapContainer.current,
+      container: mapContainer.current || "",
       style: "mapbox://styles/mapbox/streets-v12",
       center: [lng, lat],
       zoom: zoom,
@@ -59,7 +63,7 @@ const Sita: NextPage = ({ setArea }) => {
       defaultMode: "draw_polygon",
     });
 
-    function updateArea(e) {
+    function updateArea(e: any) {
       const data = draw.getAll();
       console.log(data);
       // const answer = document.getElementById("calculated-area");

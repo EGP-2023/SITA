@@ -8,7 +8,7 @@ import SocialLogin from "@biconomy/web3-auth";
 import { ethers } from "ethers";
 import type { NextPage } from "next";
 import { MetaHeader } from "~~/components/MetaHeader";
-import { useSitaStore } from "~~/utils/sitaStore";
+import { SitaStore, useSitaStore } from "~~/utils/sitaStore";
 
 const bundler: IBundler = new Bundler({
   bundlerUrl: "https://bundler.biconomy.io/api/v2/80001/abc", // you can get this value from biconomy dashboard.
@@ -28,7 +28,7 @@ const Test: NextPage = () => {
   const [provider, setProvider] = useState<any>(null);
   const [address, setAddress] = useState<string>("");
 
-  const setBiconomySmartAccount = useSitaStore(state => state.setBiconomySmartAccount);
+  const setBiconomySmartAccount = useSitaStore((state: SitaStore) => state.setBiconomySmartAccount);
 
   const setupSmartAccount = useCallback(async () => {
     if (!sdkRef?.current?.provider) return;

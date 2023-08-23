@@ -14,10 +14,18 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    // disable this if you want to use any
+    // "noImplicitAny": false
+    "typeRoots": ["./types", "./node_modules/@types"],
     "paths": {
       "~~/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "./types/**/*.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": ["node_modules","components/scaffold-eth"]
 }

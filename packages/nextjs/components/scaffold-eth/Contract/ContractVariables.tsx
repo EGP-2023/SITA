@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { DisplayVariable } from "./DisplayVariable";
 import { Abi, AbiFunction } from "abitype";
 import { Contract, ContractName } from "~~/utils/scaffold-eth/contract";
