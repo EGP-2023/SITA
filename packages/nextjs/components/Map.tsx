@@ -63,7 +63,7 @@ const Sita: NextPage<SitaProps> = ({ setArea }) => {
       defaultMode: "draw_polygon",
     });
 
-    function updateArea(e) {
+    function updateArea(e: any) {
       const data = draw.getAll();
       console.log(data);
       // const answer = document.getElementById("calculated-area");

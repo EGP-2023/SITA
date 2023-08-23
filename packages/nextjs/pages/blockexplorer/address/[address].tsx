@@ -193,3 +193,5 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
   return { props: { address, contractData: { bytecode, assembly } } };
 };
+
+export const runtime = "edge";
