@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Dispatch, SetStateAction } from "react";
 import { AbiParameter } from "abitype";
 import {

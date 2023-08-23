@@ -9,10 +9,15 @@ const INFURA_ID = "1cd04cb98bb744c59d01758cd9e9729e";
 
 const NETWORK = "mainnet";
 
-function useWeb3Modal(config = {}) {
-  2;
-  const [provider, setProvider] = useState();
-  const [autoLoaded, setAutoLoaded] = useState(false);
+interface IConfig {
+  autoLoad?: boolean;
+  infuraId?: string;
+  network?: string;
+}
+
+function useWeb3Modal(config: IConfig) {
+  const [provider, setProvider] = useState<Web3Provider>();
+  const [autoLoaded, setAutoLoaded] = useState<boolean>(false);
   const { autoLoad = true, infuraId = INFURA_ID, network = NETWORK } = config;
 
   // Web3Modal also supports many other wallets.

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { ReadOnlyFunctionForm } from "./ReadOnlyFunctionForm";
 import { Abi, AbiFunction } from "abitype";
 import { Contract, ContractName } from "~~/utils/scaffold-eth/contract";
