@@ -131,4 +131,4 @@ const TransactionPage: NextPage = () => {
 };
 
 export default TransactionPage;
-export const runtime = "edge";
+export const runtime = "experimental-edge";

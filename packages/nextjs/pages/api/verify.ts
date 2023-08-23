@@ -53,4 +53,4 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Verify
 
   //   });
 }
-export const runtime = "edge";
+export const runtime = "experimental-edge";
