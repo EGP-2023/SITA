@@ -2,6 +2,7 @@
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  nodejs_compat: true,
   reactStrictMode: true,
   images: {
     unoptimized: true,
