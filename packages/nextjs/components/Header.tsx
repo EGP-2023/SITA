@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 import { Link } from "@chakra-ui/next-js";
 import {
   Avatar,
@@ -13,12 +12,13 @@ import {
   MenuItem,
   MenuList,
   Stack,
-  useColorModeValue,
-  useDisclosure,
+  useDisclosure
 } from "@chakra-ui/react";
+import { ReactNode } from "react";
 // import { HamburgerIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
-import { MdAdd, MdClose, MdHamburger } from "react-icons/md";
+import { MdClose } from "react-icons/md";
 import { useSitaStore } from "~~/utils/sitaStore";
+import BiconomyButton from "./BiconomyButton";
 
 const Links = ["Lend", "Borrow", "MyDashboard", "About"];
 
@@ -68,9 +68,12 @@ export default function Header() {
           </HStack>
           <Flex alignItems={"center"} mx={10}>
             {auth ? (
+              <>
               <Button variant={"solid"} bg={"brand.900"} size={"sm"} rounded={"3xl"}>
-                Sign Up
+                Sign Ups
               </Button>
+              <BiconomyButton />
+              </>
             ) : (
               <Menu>
                 <MenuButton as={Button} rounded={"full"} variant={"link"} cursor={"pointer"} minW={0}>

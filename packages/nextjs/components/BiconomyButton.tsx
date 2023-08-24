@@ -27,9 +27,32 @@ const Test: NextPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [provider, setProvider] = useState<any>(null);
   const [address, setAddress] = useState<string>("");
+  const [error, setError] = useState<string>("");
 
   const setBiconomySmartAccount = useSitaStore(state => state.setBiconomySmartAccount);
 
+  useEffect(() => {
+    // This code runs only in the browser (client-side) after the component has mounted
+    async function instantiateSocialLogin() {
+      const { default: SocialLogin } = await import('@biconomy/web3-auth');  // Dynamically import SocialLogin
+      sdkRef.current = new SocialLogin();
+    }
+
+    instantiateSocialLogin();
+  }, []);
+
+
+  useEffect(() => {
+    // Only run this code on the client side
+    if (typeof window !== 'undefined') {
+      const init = async () => {
+        const { default: SocialLogin } = await import('@biconomy/web3-auth');  // Dynamically import SocialLogin
+        sdkRef.current = new SocialLogin();
+      };
+      init();
+    }
+  }, []); 
+  
   useEffect(() => {
     let configureLogin: any;
     if (interval) {
@@ -39,39 +62,45 @@ const Test: NextPage = () => {
           clearInterval(configureLogin);
         }
       }, 1000);
+
+      return () => {
+        clearInterval(configureLogin);
+      }
     }
   }, [interval]);
 
   async function login() {
-    if (!sdkRef.current) {
-      const socialLoginSDK = new SocialLogin();
-      //TODO: also add the deployment url to the whitelist
-      const signature1 = await socialLoginSDK.whitelistUrl("http://localhost:3000/");
-      await socialLoginSDK.init({
-        chainId: ethers.utils.hexValue(ChainId.POLYGON_MUMBAI).toString(),
-        network: "testnet",
-        whitelistUrls: {
-          "http://localhost:3000/": signature1,
-        },
-      });
-      sdkRef.current = socialLoginSDK;
-    }
-    if (!sdkRef.current.provider) {
-      sdkRef.current.showWallet();
-      enableInterval(true);
-    } else {
-      setupSmartAccount();
+    try {
+      if (!sdkRef.current) {
+        const socialLoginSDK = new SocialLogin();
+        const signature1 = await socialLoginSDK.whitelistUrl("http://localhost:3000/");
+        await socialLoginSDK.init({
+          chainId: ethers.utils.hexValue(ChainId.POLYGON_MUMBAI).toString(),
+          network: "testnet",
+          whitelistUrls: {
+            "http://localhost:3000/": signature1,
+          },
+        });
+        sdkRef.current = socialLoginSDK;
+      }
+      if (!sdkRef.current.provider) {
+        sdkRef.current.showWallet();
+        enableInterval(true);
+      } else {
+        setupSmartAccount();
+      }
+    } catch (err) {
+      setError(err.message);
     }
   }
 
   async function setupSmartAccount() {
-    if (!sdkRef?.current?.provider) return;
-    sdkRef.current.hideWallet();
-    setLoading(true);
-    const web3Provider = new ethers.providers.Web3Provider(sdkRef.current.provider);
-    setProvider(web3Provider);
-
     try {
+      if (!sdkRef?.current?.provider) return;
+      sdkRef.current.hideWallet();
+      setLoading(true);
+      const web3Provider = new ethers.providers.Web3Provider(sdkRef.current.provider);
+      setProvider(web3Provider);
       const biconomySmartAccountConfig: BiconomySmartAccountConfig = {
         signer: web3Provider.getSigner(),
         chainId: ChainId.POLYGON_MUMBAI,
@@ -86,26 +115,24 @@ const Test: NextPage = () => {
       console.log(biconomySmartAccount);
       setLoading(false);
     } catch (err) {
-      console.log("error setting up smart account... ", err);
+      setError(err.message);
     }
   }
 
   const logout = async () => {
-    if (!sdkRef.current) {
-      console.error("Web3Modal not initialized.");
-      return;
+    try {
+      if (!sdkRef.current) {
+        throw new Error("Web3Modal not initialized.");
+      }
+      await sdkRef.current.logout();
+      sdkRef.current.hideWallet();
+      setSmartAccount(null);
+      setAddress("");
+      enableInterval(false);
+    } catch (err) {
+      setError(err.message);
     }
-    await sdkRef.current.logout();
-    sdkRef.current.hideWallet();
-    setSmartAccount(null);
-    setAddress("");
-    enableInterval(false);
   };
-
-  useEffect(() => {
-    if (address && provider) {
-    }
-  }, [address, provider]);
 
   return (
     <>
@@ -115,6 +142,8 @@ const Test: NextPage = () => {
       />
       <div className="flex flex-col gap-y-6 lg:gap-y-8 py-8 lg:py-12 justify-center items-center">
         <h1>Test</h1>
+
+        {error && <p>Error: {error}</p>}
 
         {!smartAccount && <button onClick={login}>Connect to Web3</button>}
         {smartAccount && <button onClick={logout}>Logout</button>}
