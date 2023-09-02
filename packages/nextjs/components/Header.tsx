@@ -1,4 +1,5 @@
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
+import LenderOrBorrowerCard from "./sita/organisms/LenderOrBorrowerCard";
 import { Link } from "@chakra-ui/next-js";
 import {
   Avatar,
@@ -12,6 +13,9 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
+  Modal,
+  ModalContent,
+  ModalOverlay,
   Stack,
   useDisclosure,
 } from "@chakra-ui/react";
@@ -38,6 +42,7 @@ const NavLink = ({ children }: { children: ReactNode }) => (
 
 export default function Header() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const auth = useSitaStore(state => state.auth);
 
@@ -67,9 +72,24 @@ export default function Header() {
           </HStack>
           <Flex alignItems={"center"} mx={10}>
             {auth ? (
-              <Button variant={"solid"} bg={"brand.900"} size={"sm"} rounded={"3xl"}>
-                Sign Up
-              </Button>
+              <>
+                <Button
+                  variant={"solid"}
+                  bg={"brand.900"}
+                  size={"sm"}
+                  rounded={"3xl"}
+                  onClick={() => setIsModalOpen(true)}
+                >
+                  Connect Wallet
+                </Button>
+
+                <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+                  <ModalOverlay />
+                  <ModalContent>
+                    <LenderOrBorrowerCard />
+                  </ModalContent>
+                </Modal>
+              </>
             ) : (
               <Menu>
                 <MenuButton as={Button} rounded={"full"} variant={"link"} cursor={"pointer"} minW={0}>
